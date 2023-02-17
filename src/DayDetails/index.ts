@@ -19,10 +19,10 @@ export * from './types'
 export function getPriceOverviewData(params: GetDayDetailsCommonParams): Promise<PriceOverviewData> {
    return new Promise<PriceOverviewData>(async (resolve, reject) => {
 
-      const { id, dEven } = params
+      const { insId, dEven } = params
 
       const response = await request({
-         url: `http://cdn.tsetmc.com/api/ClosingPrice/GetClosingPriceDaily/${id}/${dEven}`,
+         url: `http://cdn.tsetmc.com/api/ClosingPrice/GetClosingPriceDaily/${insId}/${dEven}`,
          method: "GET"
       }).catch(reject)
 
@@ -49,10 +49,10 @@ export function getPriceOverviewData(params: GetDayDetailsCommonParams): Promise
 export function getPriceData(params: GetDayDetailsCommonParams): Promise<PriceDataRow[]> {
    return new Promise<PriceDataRow[]>(async (resolve, reject) => {
 
-      const { id, dEven } = params
+      const { insId, dEven } = params
 
       const response = await request({
-         url: `http://cdn.tsetmc.com/api/ClosingPrice/GetClosingPriceHistory/${id}/${dEven}`,
+         url: `http://cdn.tsetmc.com/api/ClosingPrice/GetClosingPriceHistory/${insId}/${dEven}`,
          method: "GET"
       }).catch(reject)
 
@@ -75,10 +75,10 @@ export function getPriceData(params: GetDayDetailsCommonParams): Promise<PriceDa
 export async function getOrderBookData(params: GetDayDetailsCommonParams): Promise<OrderBookDataRow[]> {
    return new Promise<OrderBookDataRow[]>(async (resolve, reject) => {
 
-      const { id, dEven } = params
+      const { insId, dEven } = params
 
       const response = await request({
-         url: `http://cdn.tsetmc.com/api/BestLimits/${id}/${dEven}`,
+         url: `http://cdn.tsetmc.com/api/BestLimits/${insId}/${dEven}`,
          method: "GET"
       }).catch(reject)
 
@@ -143,11 +143,11 @@ export async function getOrderBookData(params: GetDayDetailsCommonParams): Promi
 export async function getTrades(params: GetTradesParams): Promise<TradeDataRow> {
    return new Promise<TradeDataRow>(async (resolve, reject) => {
 
-      const { id, dEven, summarize } = params
+      const { insId, dEven, summarize } = params
       const summarizeStr = summarize ? 'true' : 'false'
 
       const response = await request({
-         url: `http://cdn.tsetmc.com/api/Trade/GetTradeHistory/${id}/${dEven}/${summarizeStr}`,
+         url: `http://cdn.tsetmc.com/api/Trade/GetTradeHistory/${insId}/${dEven}/${summarizeStr}`,
          method: "GET"
       }).catch(reject)
 
@@ -167,10 +167,10 @@ export async function getTrades(params: GetTradesParams): Promise<TradeDataRow> 
 export async function getTradersType(params: GetDayDetailsCommonParams): Promise<TradersTypeData> {
    return new Promise<TradersTypeData>(async (resolve, reject) => {
 
-      const { id, dEven } = params
+      const { insId, dEven } = params
 
       const response = await request({
-         url: `http://cdn.tsetmc.com/api/ClientType/GetClientTypeHistory/${id}/${dEven}`,
+         url: `http://cdn.tsetmc.com/api/ClientType/GetClientTypeHistory/${insId}/${dEven}`,
          method: "GET"
       }).catch(reject)
 
@@ -211,10 +211,10 @@ export async function getTradersType(params: GetDayDetailsCommonParams): Promise
 export async function getThresholds(params: GetDayDetailsCommonParams): Promise<ThresholdsData> {
    return new Promise<ThresholdsData>(async (resolve, reject) => {
 
-      const { id, dEven } = params
+      const { insId, dEven } = params
 
       const response = await request({
-         url: `http://cdn.tsetmc.com/api/MarketData/GetStaticThreshold/${id}/${dEven}`,
+         url: `http://cdn.tsetmc.com/api/MarketData/GetStaticThreshold/${insId}/${dEven}`,
          method: "GET"
       }).catch(reject)
 
@@ -233,10 +233,10 @@ export async function getThresholds(params: GetDayDetailsCommonParams): Promise<
 export async function getShareholders(params: GetDayDetailsCommonParams): Promise<ShareHolderDataRow[]> {
    return new Promise<ShareHolderDataRow[]>(async (resolve, reject) => {
 
-      const { id, dEven } = params
+      const { insId, dEven } = params
 
       const response = await request({
-         url: `http://cdn.tsetmc.com/api/Shareholder/${id}/${dEven}`,
+         url: `http://cdn.tsetmc.com/api/Shareholder/${insId}/${dEven}`,
          method: "GET"
       }).catch(reject)
 

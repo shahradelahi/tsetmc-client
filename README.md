@@ -6,6 +6,7 @@ This library is for getting tehran stock market data from the [TseTmc.com] websi
 
 ```bash
 npm install tsetmc-client
+
 ```
 
 ## Usage
@@ -14,12 +15,12 @@ npm install tsetmc-client
 const tsetmc = require('tsetmc-client');
 
 const parameters = {
-   symbolId: '35331248532537562',
+   insId: '35331248532537562',
    dEven: 20230201 // Date in format of YYYYMMDD
-} 
+}
 
 tsetmc.DayDetails.getPriceData(parameters).then((data) => {
-  console.log(data); // {"priceChange": 740.00, "low":15630.00, ...}
+   console.log(data); // {"priceChange": 740.00, "low":15630.00, ...}
 });
 ```
 
@@ -27,22 +28,22 @@ tsetmc.DayDetails.getPriceData(parameters).then((data) => {
 
 ### DayDetails
 
-This object contains with methods for getting data from the [DayDetails](http://www.tsetmc.com/Loader.aspx?ParTree=151311&i=35331248532537562#) page.
+This object contains with methods for getting data from
+the [DayDetails](http://www.tsetmc.com/Loader.aspx?ParTree=151311&i=35331248532537562#) page.
 
-* `getPriceOverview({ symbolId, dEven })`: [`Promise<PriceOverviewData>`](docs/types.md#PriceOverviewData)
-* `getPriceData({ symbolId, dEven })`: [`Promise<PriceDataRow[]>`](docs/types.md#PriceDataRow)
-* `getOrderBookData({ symbolId, dEven })`: [`Promise<OrderBookDataRow[]>`](docs/types.md#OrderBookDataRow)
-* `getTrades({ symbolId, dEven, summarize })`: [`Promise<TradeDataRow[]>`](docs/types.md#TradeDataRow)
-* `getTradersType({ symbolId, dEven })`: [`Promise<TradersTypeData[]>`](docs/types.md#TradersTypeData)
-* `getThresholds({ symbolId, dEven })`: [`Promise<ThresholdsData[]>`](docs/types.md#ThresholdsData)
-* `getShareholders({ symbolId, dEven })`: [`Promise<ShareHolderDataRow>`](docs/types.md#ShareHolderDataRow)
+* `getPriceOverview({ insId, dEven })`: [`Promise<PriceOverviewData>`](docs/types.md#PriceOverviewData)
+* `getPriceData({ insId, dEven })`: [`Promise<PriceDataRow[]>`](docs/types.md#PriceDataRow)
+* `getOrderBookData({ insId, dEven })`: [`Promise<OrderBookDataRow[]>`](docs/types.md#OrderBookDataRow)
+* `getTrades({ insId, dEven, summarize })`: [`Promise<TradeDataRow[]>`](docs/types.md#TradeDataRow)
+* `getTradersType({ insId, dEven })`: [`Promise<TradersTypeData[]>`](docs/types.md#TradersTypeData)
+* `getThresholds({ insId, dEven })`: [`Promise<ThresholdsData[]>`](docs/types.md#ThresholdsData)
+* `getShareholders({ insId, dEven })`: [`Promise<ShareHolderDataRow>`](docs/types.md#ShareHolderDataRow)
 
 ### Group
 
 This is for getting list of available symbol groups
 
 * `getAllGroups()`: [`Promise<Group[]>`](docs/types.md#Group)
-
 
 ### MarketMap
 
@@ -59,7 +60,6 @@ For more information about the types, see [docs/types.md](docs/types.md).
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 [TseTmc.com]: http://www.tsetmc.com
-
 
 ## Donate/Support
 

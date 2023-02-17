@@ -68,13 +68,13 @@ __exportStar(require("./types"), exports);
 function getPriceOverviewData(params) {
     var _this = this;
     return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-        var id, dEven, response, data;
+        var insId, dEven, response, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    id = params.id, dEven = params.dEven;
+                    insId = params.insId, dEven = params.dEven;
                     return [4 /*yield*/, (0, request_1.request)({
-                            url: "http://cdn.tsetmc.com/api/ClosingPrice/GetClosingPriceDaily/".concat(id, "/").concat(dEven),
+                            url: "http://cdn.tsetmc.com/api/ClosingPrice/GetClosingPriceDaily/".concat(insId, "/").concat(dEven),
                             method: "GET"
                         }).catch(reject)];
                 case 1:
@@ -103,13 +103,13 @@ exports.getPriceOverviewData = getPriceOverviewData;
 function getPriceData(params) {
     var _this = this;
     return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-        var id, dEven, response, data;
+        var insId, dEven, response, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    id = params.id, dEven = params.dEven;
+                    insId = params.insId, dEven = params.dEven;
                     return [4 /*yield*/, (0, request_1.request)({
-                            url: "http://cdn.tsetmc.com/api/ClosingPrice/GetClosingPriceHistory/".concat(id, "/").concat(dEven),
+                            url: "http://cdn.tsetmc.com/api/ClosingPrice/GetClosingPriceHistory/".concat(insId, "/").concat(dEven),
                             method: "GET"
                         }).catch(reject)];
                 case 1:
@@ -136,13 +136,13 @@ function getOrderBookData(params) {
         var _this = this;
         return __generator(this, function (_a) {
             return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-                    var id, dEven, response, data, prevData, hevenMap, _i, data_1, row, heven, t, buyRow, sellRow, index;
+                    var insId, dEven, response, data, prevData, hevenMap, _i, data_1, row, heven, t, buyRow, sellRow, index;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                id = params.id, dEven = params.dEven;
+                                insId = params.insId, dEven = params.dEven;
                                 return [4 /*yield*/, (0, request_1.request)({
-                                        url: "http://cdn.tsetmc.com/api/BestLimits/".concat(id, "/").concat(dEven),
+                                        url: "http://cdn.tsetmc.com/api/BestLimits/".concat(insId, "/").concat(dEven),
                                         method: "GET"
                                     }).catch(reject)];
                             case 1:
@@ -202,14 +202,14 @@ function getTrades(params) {
         var _this = this;
         return __generator(this, function (_a) {
             return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-                    var id, dEven, summarize, summarizeStr, response, data;
+                    var insId, dEven, summarize, summarizeStr, response, data;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                id = params.id, dEven = params.dEven, summarize = params.summarize;
+                                insId = params.insId, dEven = params.dEven, summarize = params.summarize;
                                 summarizeStr = summarize ? 'true' : 'false';
                                 return [4 /*yield*/, (0, request_1.request)({
-                                        url: "http://cdn.tsetmc.com/api/Trade/GetTradeHistory/".concat(id, "/").concat(dEven, "/").concat(summarizeStr),
+                                        url: "http://cdn.tsetmc.com/api/Trade/GetTradeHistory/".concat(insId, "/").concat(dEven, "/").concat(summarizeStr),
                                         method: "GET"
                                     }).catch(reject)];
                             case 1:
@@ -235,13 +235,13 @@ function getTradersType(params) {
         var _this = this;
         return __generator(this, function (_a) {
             return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-                    var id, dEven, response, data;
+                    var insId, dEven, response, data;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                id = params.id, dEven = params.dEven;
+                                insId = params.insId, dEven = params.dEven;
                                 return [4 /*yield*/, (0, request_1.request)({
-                                        url: "http://cdn.tsetmc.com/api/ClientType/GetClientTypeHistory/".concat(id, "/").concat(dEven),
+                                        url: "http://cdn.tsetmc.com/api/ClientType/GetClientTypeHistory/".concat(insId, "/").concat(dEven),
                                         method: "GET"
                                     }).catch(reject)];
                             case 1:
@@ -288,13 +288,13 @@ function getThresholds(params) {
         var _this = this;
         return __generator(this, function (_a) {
             return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-                    var id, dEven, response, data;
+                    var insId, dEven, response, data;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                id = params.id, dEven = params.dEven;
+                                insId = params.insId, dEven = params.dEven;
                                 return [4 /*yield*/, (0, request_1.request)({
-                                        url: "http://cdn.tsetmc.com/api/MarketData/GetStaticThreshold/".concat(id, "/").concat(dEven),
+                                        url: "http://cdn.tsetmc.com/api/MarketData/GetStaticThreshold/".concat(insId, "/").concat(dEven),
                                         method: "GET"
                                     }).catch(reject)];
                             case 1:
@@ -319,13 +319,13 @@ function getShareholders(params) {
         var _this = this;
         return __generator(this, function (_a) {
             return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-                    var id, dEven, response, data;
+                    var insId, dEven, response, data;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                id = params.id, dEven = params.dEven;
+                                insId = params.insId, dEven = params.dEven;
                                 return [4 /*yield*/, (0, request_1.request)({
-                                        url: "http://cdn.tsetmc.com/api/Shareholder/".concat(id, "/").concat(dEven),
+                                        url: "http://cdn.tsetmc.com/api/Shareholder/".concat(insId, "/").concat(dEven),
                                         method: "GET"
                                     }).catch(reject)];
                             case 1:

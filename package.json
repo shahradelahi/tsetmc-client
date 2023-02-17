@@ -26,7 +26,6 @@
     "email": "shahrad@litehex.com"
   },
   "files": [
-    "docs",
     "dist",
     "src",
     "package.json",
