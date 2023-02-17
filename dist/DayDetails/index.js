@@ -66,238 +66,286 @@ var request_1 = require("../request");
 var utils_1 = require("../utils");
 __exportStar(require("./types"), exports);
 function getPriceOverviewData(params) {
-    return __awaiter(this, void 0, void 0, function () {
-        var symbolId, dEven, response, data;
+    var _this = this;
+    return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+        var id, dEven, response, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    symbolId = params.symbolId, dEven = params.dEven;
+                    id = params.id, dEven = params.dEven;
                     return [4 /*yield*/, (0, request_1.request)({
-                            url: "http://cdn.tsetmc.com/api/ClosingPrice/GetClosingPriceDaily/".concat(symbolId, "/").concat(dEven),
+                            url: "http://cdn.tsetmc.com/api/ClosingPrice/GetClosingPriceDaily/".concat(id, "/").concat(dEven),
                             method: "GET"
-                        })];
+                        }).catch(reject)];
                 case 1:
                     response = _a.sent();
+                    if (!response)
+                        return [2 /*return*/];
                     data = response.json()['closingPriceDaily'];
-                    return [2 /*return*/, {
-                            priceChange: data["priceChange"],
-                            low: data["priceMin"],
-                            high: data["priceMax"],
-                            yesterday: data["priceYesterday"],
-                            open: data["priceFirst"],
-                            close: data["pClosing"],
-                            last: data["pDrCotVal"],
-                            count: data["zTotTran"],
-                            volume: data["qTotTran5J"],
-                            value: data["qTotCap"]
-                        }];
+                    resolve({
+                        priceChange: data["priceChange"],
+                        low: data["priceMin"],
+                        high: data["priceMax"],
+                        yesterday: data["priceYesterday"],
+                        open: data["priceFirst"],
+                        close: data["pClosing"],
+                        last: data["pDrCotVal"],
+                        count: data["zTotTran"],
+                        volume: data["qTotTran5J"],
+                        value: data["qTotCap"]
+                    });
+                    return [2 /*return*/];
             }
         });
-    });
+    }); });
 }
 exports.getPriceOverviewData = getPriceOverviewData;
 function getPriceData(params) {
-    return __awaiter(this, void 0, void 0, function () {
-        var symbolId, dEven, response, data;
+    var _this = this;
+    return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+        var id, dEven, response, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    symbolId = params.symbolId, dEven = params.dEven;
+                    id = params.id, dEven = params.dEven;
                     return [4 /*yield*/, (0, request_1.request)({
-                            url: "http://cdn.tsetmc.com/api/ClosingPrice/GetClosingPriceHistory/".concat(symbolId, "/").concat(dEven),
+                            url: "http://cdn.tsetmc.com/api/ClosingPrice/GetClosingPriceHistory/".concat(id, "/").concat(dEven),
                             method: "GET"
-                        })];
+                        }).catch(reject)];
                 case 1:
                     response = _a.sent();
+                    if (!response)
+                        return [2 /*return*/];
                     data = response.json()['closingPriceHistory'];
-                    return [2 /*return*/, data.map(function (row) { return ({
-                            time: (0, utils_1.even2JDate)(dEven, row['hEven']),
-                            close: row['pClosing'],
-                            last: row['pDrCotVal'],
-                            value: row['qTotCap'],
-                            volume: row['qTotTran5J'],
-                            count: row['zTotTran']
-                        }); })];
+                    resolve(data.map(function (row) { return ({
+                        time: (0, utils_1.even2JDate)(dEven, row['hEven']),
+                        close: row['pClosing'],
+                        last: row['pDrCotVal'],
+                        value: row['qTotCap'],
+                        volume: row['qTotTran5J'],
+                        count: row['zTotTran']
+                    }); }));
+                    return [2 /*return*/];
             }
         });
-    });
+    }); });
 }
 exports.getPriceData = getPriceData;
 function getOrderBookData(params) {
     return __awaiter(this, void 0, void 0, function () {
-        var symbolId, dEven, response, data, prevData, hevenMap, _i, data_1, row, heven, t, buyRow, sellRow, index;
+        var _this = this;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    symbolId = params.symbolId, dEven = params.dEven;
-                    return [4 /*yield*/, (0, request_1.request)({
-                            url: "http://cdn.tsetmc.com/api/BestLimits/".concat(symbolId, "/").concat(dEven),
-                            method: "GET"
-                        })];
-                case 1:
-                    response = _a.sent();
-                    data = response.json()['bestLimitsHistory'];
-                    data.sort(function (a, b) {
-                        if (a['hEven'] === b['hEven']) {
-                            return a['number'] - b['number'];
+            return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                    var id, dEven, response, data, prevData, hevenMap, _i, data_1, row, heven, t, buyRow, sellRow, index;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                id = params.id, dEven = params.dEven;
+                                return [4 /*yield*/, (0, request_1.request)({
+                                        url: "http://cdn.tsetmc.com/api/BestLimits/".concat(id, "/").concat(dEven),
+                                        method: "GET"
+                                    }).catch(reject)];
+                            case 1:
+                                response = _a.sent();
+                                if (!response)
+                                    return [2 /*return*/];
+                                data = response.json()['bestLimitsHistory'];
+                                data.sort(function (a, b) {
+                                    if (a['hEven'] === b['hEven']) {
+                                        return a['number'] - b['number'];
+                                    }
+                                    return a['hEven'] - b['hEven'];
+                                });
+                                prevData = { buyRows: [], sellRows: [] };
+                                hevenMap = {};
+                                for (_i = 0, data_1 = data; _i < data_1.length; _i++) {
+                                    row = data_1[_i];
+                                    heven = row['hEven'];
+                                    t = (0, utils_1.even2JDate)(dEven, heven);
+                                    buyRow = {
+                                        time: t,
+                                        count: row['zOrdMeDem'],
+                                        price: row['pMeDem'],
+                                        volume: row['qTitMeDem']
+                                    };
+                                    sellRow = {
+                                        time: t,
+                                        count: row['zOrdMeOf'],
+                                        price: row['pMeOf'],
+                                        volume: row['qTitMeOf']
+                                    };
+                                    index = row['number'] - 1;
+                                    if (!(heven in hevenMap)) {
+                                        hevenMap[heven] = __assign({}, prevData);
+                                    }
+                                    while (hevenMap[heven].buyRows.length < index + 1) {
+                                        hevenMap[heven].buyRows.push(null);
+                                    }
+                                    while (hevenMap[heven].sellRows.length < index + 1) {
+                                        hevenMap[heven].sellRows.push(null);
+                                    }
+                                    hevenMap[heven].buyRows[index] = buyRow;
+                                    hevenMap[heven].sellRows[index] = sellRow;
+                                    prevData = hevenMap[heven];
+                                }
+                                resolve(Object.keys(hevenMap).map(function (key) { return (__assign({ time: (0, utils_1.even2JDate)(dEven, parseInt(key)) }, hevenMap[key])); }));
+                                return [2 /*return*/];
                         }
-                        return a['hEven'] - b['hEven'];
                     });
-                    prevData = { buyRows: [], sellRows: [] };
-                    hevenMap = {};
-                    for (_i = 0, data_1 = data; _i < data_1.length; _i++) {
-                        row = data_1[_i];
-                        heven = row['hEven'];
-                        t = (0, utils_1.even2JDate)(dEven, heven);
-                        buyRow = {
-                            time: t,
-                            count: row['zOrdMeDem'],
-                            price: row['pMeDem'],
-                            volume: row['qTitMeDem']
-                        };
-                        sellRow = {
-                            time: t,
-                            count: row['zOrdMeOf'],
-                            price: row['pMeOf'],
-                            volume: row['qTitMeOf']
-                        };
-                        index = row['number'] - 1;
-                        if (!(heven in hevenMap)) {
-                            hevenMap[heven] = __assign({}, prevData);
-                        }
-                        while (hevenMap[heven].buyRows.length < index + 1) {
-                            hevenMap[heven].buyRows.push(null);
-                        }
-                        while (hevenMap[heven].sellRows.length < index + 1) {
-                            hevenMap[heven].sellRows.push(null);
-                        }
-                        hevenMap[heven].buyRows[index] = buyRow;
-                        hevenMap[heven].sellRows[index] = sellRow;
-                        prevData = hevenMap[heven];
-                    }
-                    return [2 /*return*/, Object.keys(hevenMap).map(function (key) { return (__assign({ time: (0, utils_1.even2JDate)(dEven, parseInt(key)) }, hevenMap[key])); })];
-            }
+                }); })];
         });
     });
 }
 exports.getOrderBookData = getOrderBookData;
 function getTrades(params) {
     return __awaiter(this, void 0, void 0, function () {
-        var symbolId, dEven, summarize, summarizeStr, response, data;
+        var _this = this;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    symbolId = params.symbolId, dEven = params.dEven, summarize = params.summarize;
-                    summarizeStr = summarize ? 'true' : 'false';
-                    return [4 /*yield*/, (0, request_1.request)({
-                            url: "http://cdn.tsetmc.com/api/Trade/GetTradeHistory/".concat(symbolId, "/").concat(dEven, "/").concat(summarizeStr),
-                            method: "GET"
-                        })];
-                case 1:
-                    response = _a.sent();
-                    data = response.json()['tradeHistory'];
-                    return [2 /*return*/, data.map(function (row) { return ({
-                            time: (0, utils_1.even2JDate)(dEven, row['hEven']),
-                            price: row['pTran'],
-                            volume: row['qTitTran']
-                        }); })];
-            }
+            return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                    var id, dEven, summarize, summarizeStr, response, data;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                id = params.id, dEven = params.dEven, summarize = params.summarize;
+                                summarizeStr = summarize ? 'true' : 'false';
+                                return [4 /*yield*/, (0, request_1.request)({
+                                        url: "http://cdn.tsetmc.com/api/Trade/GetTradeHistory/".concat(id, "/").concat(dEven, "/").concat(summarizeStr),
+                                        method: "GET"
+                                    }).catch(reject)];
+                            case 1:
+                                response = _a.sent();
+                                if (!response)
+                                    return [2 /*return*/];
+                                data = response.json()['tradeHistory'];
+                                resolve(data.map(function (row) { return ({
+                                    time: (0, utils_1.even2JDate)(dEven, row['hEven']),
+                                    price: row['pTran'],
+                                    volume: row['qTitTran']
+                                }); }));
+                                return [2 /*return*/];
+                        }
+                    });
+                }); })];
         });
     });
 }
 exports.getTrades = getTrades;
 function getTradersType(params) {
     return __awaiter(this, void 0, void 0, function () {
-        var symbolId, dEven, response, data;
+        var _this = this;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    symbolId = params.symbolId, dEven = params.dEven;
-                    return [4 /*yield*/, (0, request_1.request)({
-                            url: "http://cdn.tsetmc.com/api/ClientType/GetClientTypeHistory/".concat(symbolId, "/").concat(dEven),
-                            method: "GET"
-                        })];
-                case 1:
-                    response = _a.sent();
-                    data = response.json()['clientType'];
-                    return [2 /*return*/, {
-                            legal: {
-                                buy: {
-                                    volume: data['buy_N_Volume'],
-                                    value: data['buy_N_Value'],
-                                    count: data['buy_N_Count']
-                                },
-                                sell: {
-                                    volume: data['sell_N_Volume'],
-                                    value: data['sell_N_Value'],
-                                    count: data['sell_N_Count']
-                                }
-                            },
-                            real: {
-                                buy: {
-                                    volume: data['buy_I_Volume'],
-                                    value: data['buy_I_Value'],
-                                    count: data['buy_I_Count']
-                                },
-                                sell: {
-                                    volume: data['sell_I_Volume'],
-                                    value: data['sell_I_Value'],
-                                    count: data['sell_I_Count']
-                                }
-                            }
-                        }];
-            }
+            return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                    var id, dEven, response, data;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                id = params.id, dEven = params.dEven;
+                                return [4 /*yield*/, (0, request_1.request)({
+                                        url: "http://cdn.tsetmc.com/api/ClientType/GetClientTypeHistory/".concat(id, "/").concat(dEven),
+                                        method: "GET"
+                                    }).catch(reject)];
+                            case 1:
+                                response = _a.sent();
+                                if (!response)
+                                    return [2 /*return*/];
+                                data = response.json()['clientType'];
+                                resolve({
+                                    legal: {
+                                        buy: {
+                                            volume: data['buy_N_Volume'],
+                                            value: data['buy_N_Value'],
+                                            count: data['buy_N_Count']
+                                        },
+                                        sell: {
+                                            volume: data['sell_N_Volume'],
+                                            value: data['sell_N_Value'],
+                                            count: data['sell_N_Count']
+                                        }
+                                    },
+                                    real: {
+                                        buy: {
+                                            volume: data['buy_I_Volume'],
+                                            value: data['buy_I_Value'],
+                                            count: data['buy_I_Count']
+                                        },
+                                        sell: {
+                                            volume: data['sell_I_Volume'],
+                                            value: data['sell_I_Value'],
+                                            count: data['sell_I_Count']
+                                        }
+                                    }
+                                });
+                                return [2 /*return*/];
+                        }
+                    });
+                }); })];
         });
     });
 }
 exports.getTradersType = getTradersType;
 function getThresholds(params) {
     return __awaiter(this, void 0, void 0, function () {
-        var symbolId, dEven, response, data;
+        var _this = this;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    symbolId = params.symbolId, dEven = params.dEven;
-                    return [4 /*yield*/, (0, request_1.request)({
-                            url: "http://cdn.tsetmc.com/api/MarketData/GetStaticThreshold/".concat(symbolId, "/").concat(dEven),
-                            method: "GET"
-                        })];
-                case 1:
-                    response = _a.sent();
-                    data = response.json()['staticThreshold'];
-                    return [2 /*return*/, {
-                            rangeMax: data[1]['psGelStaMax'],
-                            rangeMin: data[1]['psGelStaMin']
-                        }];
-            }
+            return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                    var id, dEven, response, data;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                id = params.id, dEven = params.dEven;
+                                return [4 /*yield*/, (0, request_1.request)({
+                                        url: "http://cdn.tsetmc.com/api/MarketData/GetStaticThreshold/".concat(id, "/").concat(dEven),
+                                        method: "GET"
+                                    }).catch(reject)];
+                            case 1:
+                                response = _a.sent();
+                                if (!response)
+                                    return [2 /*return*/];
+                                data = response.json()['staticThreshold'];
+                                resolve({
+                                    rangeMax: data[1]['psGelStaMax'],
+                                    rangeMin: data[1]['psGelStaMin']
+                                });
+                                return [2 /*return*/];
+                        }
+                    });
+                }); })];
         });
     });
 }
 exports.getThresholds = getThresholds;
 function getShareholders(params) {
     return __awaiter(this, void 0, void 0, function () {
-        var symbolId, dEven, response, data;
+        var _this = this;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    symbolId = params.symbolId, dEven = params.dEven;
-                    return [4 /*yield*/, (0, request_1.request)({
-                            url: "http://cdn.tsetmc.com/api/Shareholder/".concat(symbolId, "/").concat(dEven),
-                            method: "GET"
-                        })];
-                case 1:
-                    response = _a.sent();
-                    data = response.json()['shareShareholder'];
-                    return [2 /*return*/, data.map(function (row) { return ({
-                            date: (0, utils_1.even2JDate)(dEven, row['dEven']),
-                            shareholder: {
-                                id: row['shareHolderId'].toString(),
-                                name: row['shareHolderName']
-                            },
-                            count: row['numberOfShares'],
-                            percentage: row['perOfShares']
-                        }); })];
-            }
+            return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                    var id, dEven, response, data;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                id = params.id, dEven = params.dEven;
+                                return [4 /*yield*/, (0, request_1.request)({
+                                        url: "http://cdn.tsetmc.com/api/Shareholder/".concat(id, "/").concat(dEven),
+                                        method: "GET"
+                                    }).catch(reject)];
+                            case 1:
+                                response = _a.sent();
+                                if (!response)
+                                    return [2 /*return*/];
+                                data = response.json()['shareShareholder'];
+                                resolve(data.map(function (row) { return ({
+                                    date: (0, utils_1.even2JDate)(dEven, row['dEven']),
+                                    shareholder: {
+                                        id: row['shareHolderId'].toString(),
+                                        name: row['shareHolderName']
+                                    },
+                                    count: row['numberOfShares'],
+                                    percentage: row['perOfShares']
+                                }); }));
+                                return [2 /*return*/];
+                        }
+                    });
+                }); })];
         });
     });
 }

@@ -1,5 +1,5 @@
 export interface GetDayDetailsCommonParams {
-   symbolId: string
+   id: string
    dEven: number
 }
 

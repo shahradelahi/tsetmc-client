@@ -56,42 +56,50 @@ var types_1 = require("./types");
 __exportStar(require("./types"), exports);
 function getMarketMap(params) {
     return __awaiter(this, void 0, void 0, function () {
-        var _a, mapType, _b, hEven, response, rawData;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
-                case 0:
-                    _a = params.mapType, mapType = _a === void 0 ? types_1.MapType.MarketValue : _a, _b = params.hEven, hEven = _b === void 0 ? 0 : _b;
-                    return [4 /*yield*/, (0, request_1.request)({
-                            url: 'http://cdn.tsetmc.com/api/ClosingPrice/GetMarketMap',
-                            method: "GET",
-                            query: {
-                                'market': 0,
-                                'size': 1920,
-                                'sector': 0,
-                                'typeSelected': mapType,
-                                'hEven': hEven
-                            }
-                        })];
-                case 1:
-                    response = _c.sent();
-                    rawData = response.json();
-                    return [2 /*return*/, rawData.map(function (row) {
-                            return {
-                                id: row['insCode'],
-                                shortName: row['lVal18AFC'],
-                                longName: row['lVal30'],
-                                close: row['pClosing'],
-                                last: row['pDrCotVal'],
-                                volume: row['qTotTran5J'],
-                                value: row['qTotCap'],
-                                count: row['zTotTran'],
-                                groupName: row['lSecVal'],
-                                color: row['color'],
-                                priceChangePercent: row['priceChangePercent'],
-                                percent: row['percent']
-                            };
-                        })];
-            }
+        var _this = this;
+        return __generator(this, function (_a) {
+            return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                    var _a, mapType, _b, hEven, response, rawData;
+                    return __generator(this, function (_c) {
+                        switch (_c.label) {
+                            case 0:
+                                _a = params.mapType, mapType = _a === void 0 ? types_1.MapType.MarketValue : _a, _b = params.hEven, hEven = _b === void 0 ? 0 : _b;
+                                return [4 /*yield*/, (0, request_1.request)({
+                                        url: 'http://cdn.tsetmc.com/api/ClosingPrice/GetMarketMap',
+                                        method: "GET",
+                                        query: {
+                                            'market': 0,
+                                            'size': 1920,
+                                            'sector': 0,
+                                            'typeSelected': mapType,
+                                            'hEven': hEven
+                                        }
+                                    }).catch(reject)];
+                            case 1:
+                                response = _c.sent();
+                                if (!response)
+                                    return [2 /*return*/];
+                                rawData = response.json();
+                                resolve(rawData.map(function (row) {
+                                    return {
+                                        id: row['insCode'],
+                                        shortName: row['lVal18AFC'],
+                                        longName: row['lVal30'],
+                                        close: row['pClosing'],
+                                        last: row['pDrCotVal'],
+                                        volume: row['qTotTran5J'],
+                                        value: row['qTotCap'],
+                                        count: row['zTotTran'],
+                                        groupName: row['lSecVal'],
+                                        color: row['color'],
+                                        priceChangePercent: row['priceChangePercent'],
+                                        percent: row['percent']
+                                    };
+                                }));
+                                return [2 /*return*/];
+                        }
+                    });
+                }); })];
         });
     });
 }

@@ -55,17 +55,25 @@ var request_1 = require("../request");
 __exportStar(require("./types"), exports);
 function getAllGroups() {
     return __awaiter(this, void 0, void 0, function () {
-        var response;
+        var _this = this;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, request_1.request)({
-                        url: 'http://cdn.tsetmc.com/api/StaticData/GetStaticData',
-                        method: "GET"
-                    })];
-                case 1:
-                    response = _a.sent();
-                    return [2 /*return*/, response.json()['staticData']];
-            }
+            return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                    var response;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4 /*yield*/, (0, request_1.request)({
+                                    url: 'http://cdn.tsetmc.com/api/StaticData/GetStaticData',
+                                    method: "GET"
+                                }).catch(reject)];
+                            case 1:
+                                response = _a.sent();
+                                if (!response)
+                                    return [2 /*return*/];
+                                resolve(response.json()['staticData']);
+                                return [2 /*return*/];
+                        }
+                    });
+                }); })];
         });
     });
 }

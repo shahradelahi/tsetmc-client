@@ -13,11 +13,12 @@ export function request<T = any>(params: RequestParams): Promise<Response<T>> {
             ...params.headers || {}
          },
          qs: params.query || {},
-         body: params.body || undefined
+         body: params.body || undefined,
+         timeout: 10000
       }
 
       NodeRequest(params.url, options, (error: any, response: any, body: any) => {
-         if (error) {
+         if (error || response.statusCode !== 200) {
             reject(error);
          } else {
             resolve({

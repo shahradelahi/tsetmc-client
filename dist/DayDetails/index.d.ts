@@ -1,4 +1,4 @@
-import { OrderBookDataRow, PriceDataRow, PriceOverviewData, ThresholdsData, TradeDataRow, TradersTypeData, GetDayDetailsCommonParams, GetTradesParams, ShareHolderDataRow } from "./types";
+import { GetDayDetailsCommonParams, GetTradesParams, OrderBookDataRow, PriceDataRow, PriceOverviewData, ShareHolderDataRow, ThresholdsData, TradeDataRow, TradersTypeData } from "./types";
 export * from './types';
 export declare function getPriceOverviewData(params: GetDayDetailsCommonParams): Promise<PriceOverviewData>;
 export declare function getPriceData(params: GetDayDetailsCommonParams): Promise<PriceDataRow[]>;
