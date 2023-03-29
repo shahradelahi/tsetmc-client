@@ -1,45 +1,31 @@
-import NodeRequest, { CoreOptions } from "request";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-export function request<T = any>(params: RequestParams): Promise<Response<T>> {
-   return new Promise<Response>((resolve, reject) => {
+export async function request(url: string, options: Omit<AxiosRequestConfig, 'url'> = {}): Promise<SafeReturn<AxiosResponse>> {
+   try {
 
-      const options: CoreOptions = {
-         method: params.method,
+      const response = await axios.request({
+         url,
+         method: "GET",
          headers: {
             'Accept': "ext/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
             'Connection': "keep-alive",
-            'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+            'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36",
             'X-Requested-With': "XMLHttpRequest",
-            ...params.headers || {}
+            ...options.headers || {}
          },
-         qs: params.query || {},
-         body: params.body || undefined,
-         timeout: 10000
-      }
+         ...options
+      })
 
-      NodeRequest(params.url, options, (error: any, response: any, body: any) => {
-         if (error || response.statusCode !== 200) {
-            reject(error);
-         } else {
-            resolve({
-               text: () => body,
-               json: () => JSON.parse(body)
-            });
-         }
-      });
+      return { data: response }
 
-   })
+   } catch (error) {
+      return { error }
+   }
 }
 
-interface RequestParams {
-   url: string
-   method: string
-   headers?: Record<string, string | number>
-   query?: Record<string, string | number | boolean>
-   body?: string
-}
+export type SafeReturn<T, K = any> = LeastOne<{
+   data: T,
+   error: K
+}>
 
-interface Response<T = any> {
-   text: () => string
-   json: <O = any>() => O extends T ? O : T
-}
+export type LeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> & U[keyof U];

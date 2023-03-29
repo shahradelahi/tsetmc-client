@@ -1,0 +1,10 @@
+import { GetDayDetailsCommonParams, GetTradesParams, OrderBookDataRow, PriceDataRow, PriceOverviewData, ShareHolderDataRow, ThresholdsData, TradeDataRow, TradersTypeData } from "./types";
+import { SafeReturn } from "../request";
+export * from './types';
+export declare function getPriceOverviewData(params: GetDayDetailsCommonParams): Promise<SafeReturn<PriceOverviewData>>;
+export declare function getPriceData(params: GetDayDetailsCommonParams): Promise<SafeReturn<PriceDataRow[]>>;
+export declare function getOrderBookData(params: GetDayDetailsCommonParams): Promise<SafeReturn<OrderBookDataRow[]>>;
+export declare function getTrades(params: GetTradesParams): Promise<SafeReturn<TradeDataRow>>;
+export declare function getTradersType(params: GetDayDetailsCommonParams): Promise<SafeReturn<TradersTypeData>>;
+export declare function getThresholds(params: GetDayDetailsCommonParams): Promise<SafeReturn<ThresholdsData>>;
+export declare function getShareholders(params: GetDayDetailsCommonParams): Promise<SafeReturn<ShareHolderDataRow[]>>;

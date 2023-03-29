@@ -2,7 +2,7 @@ name: Release Package
 
 on:
   release:
-    types: [created]
+    types: [ created ]
 
 jobs:
   build:
@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: CI Stuff
+      - name: CI Job
         uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: 18
           registry-url: https://registry.npmjs.org/
-      - run: npm version ${{ github.ref_name }}
+      - run: npm version ${{ github.event.release.tag_name }} --no-git-tag-version
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

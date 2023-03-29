@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2020",
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "sourceMap": true,
@@ -13,7 +13,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "incremental": true,
-    "outDir": "dist"
+    "outDir": "distribution"
   },
   "ts-node": {
     "compilerOptions": {
@@ -21,5 +21,5 @@
     }
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules", "dist", "tests"]
+  "exclude": ["node_modules", "distribution", "tests"]
 }

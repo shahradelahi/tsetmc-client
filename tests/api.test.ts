@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals'
-import TseTmc from '../src'
+import TseTmc from '../src/index'
 
 
 const symbol = {
@@ -13,55 +13,56 @@ describe('Day Details', () => {
 
    test('Get Price Overview Data', async () => {
 
-      const response = await TseTmc.DayDetails.getPriceOverviewData({ id: symbol.id, dEven: 20230201 })
+      const { data } = await TseTmc.DayDetails.getPriceOverviewData({ insId: symbol.id, dEven: 20230201 })
 
-      expect(response).toBeDefined()
-      expect(response).toHaveProperty('volume')
-      expect(response.volume).toEqual(6794682)
+      expect(data).toBeDefined()
+      expect(data).toHaveProperty('volume')
+      expect(data.volume).toEqual(6794682)
 
-      await TseTmc.DayDetails.getPriceOverviewData({ id: '00000', dEven: 12341212 })
-          .catch((err: any) => expect(err).toBeDefined())
+      const { error } = await TseTmc.DayDetails.getPriceOverviewData({ insId: '00000', dEven: 12341212 })
+      expect(error).toBeDefined()
+
 
    }, commonTimeOut)
 
    test('Get Price Data', async () => {
 
-      const response = await TseTmc.DayDetails.getPriceData({ id: symbol.id, dEven: 20230201 })
+      const { data } = await TseTmc.DayDetails.getPriceData({ insId: symbol.id, dEven: 20230201 })
 
-      expect(response).toBeDefined()
+      expect(data).toBeDefined()
 
    }, commonTimeOut)
 
    test('Get Order Book Data', async () => {
 
-      const response = await TseTmc.DayDetails.getOrderBookData({ id: symbol.id, dEven: 20230201 })
+      const { data } = await TseTmc.DayDetails.getOrderBookData({ insId: symbol.id, dEven: 20230201 })
 
-      expect(response).toBeDefined()
+      expect(data).toBeDefined()
 
    }, commonTimeOut)
 
    test('Get Trades', async () => {
 
-      const response = await TseTmc.DayDetails.getTrades({ id: symbol.id, dEven: 20230201, summarize: true })
+      const { data } = await TseTmc.DayDetails.getTrades({ insId: symbol.id, dEven: 20230201, summarize: true })
 
-      expect(response).toBeDefined()
+      expect(data).toBeDefined()
 
    }, commonTimeOut)
 
    test('Get Traders Type', async () => {
 
-      const response = await TseTmc.DayDetails.getTradersType({ id: symbol.id, dEven: 20230201 })
+      const { data } = await TseTmc.DayDetails.getTradersType({ insId: symbol.id, dEven: 20230201 })
 
-      expect(response).toBeDefined()
+      expect(data).toBeDefined()
 
    }, commonTimeOut)
 
 
    test('Get Thresholds', async () => {
 
-      const response = await TseTmc.DayDetails.getThresholds({ id: symbol.id, dEven: 20230201 })
+      const { data } = await TseTmc.DayDetails.getThresholds({ insId: symbol.id, dEven: 20230201 })
 
-      expect(response).toBeDefined()
+      expect(data).toBeDefined()
 
    }, commonTimeOut)
 

@@ -1,21 +1,24 @@
-import { request } from "../request"
+import { request, SafeReturn } from "../request"
 import { Group } from "./types";
 
 export * from './types'
 
 
-export async function getAllGroups(): Promise<Group[]> {
-   return new Promise<Group[]>(async (resolve, reject) => {
+export async function getAllGroups(): Promise<SafeReturn<Group[]>> {
+   try {
+      const {
+         data: response,
+         error
+      } = await request('http://cdn.tsetmc.com/api/StaticData/GetStaticData')
 
-      const response = await request({
-         url: 'http://cdn.tsetmc.com/api/StaticData/GetStaticData',
-         method: "GET"
-      }).catch(reject)
+      if (error) return { error }
+      if (!response) return ({ error: "No response" })
 
-      if (!response) return
-
-      resolve(response.json()['staticData'])
-
-   })
+      return {
+         data: response.data['staticData']
+      }
+   } catch (e) {
+      return { error: e }
+   }
 }
 
