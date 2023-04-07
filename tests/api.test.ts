@@ -17,7 +17,7 @@ describe('Day Details', () => {
 
       expect(data).toBeDefined()
       expect(data).toHaveProperty('volume')
-      expect(data.volume).toEqual(6794682)
+      expect(data!.volume).toEqual(6794682)
 
       const { error } = await TseTmc.DayDetails.getPriceOverviewData({ insId: '00000', dEven: 12341212 })
       expect(error).toBeDefined()
