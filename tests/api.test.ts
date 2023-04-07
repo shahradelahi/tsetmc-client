@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals'
-import TseTmc from '../src/index'
+import TseTmc, { MapType } from '../src/index'
 
 
 const symbol = {
@@ -57,12 +57,32 @@ describe('Day Details', () => {
 
    }, commonTimeOut)
 
-
    test('Get Thresholds', async () => {
 
       const { data } = await TseTmc.DayDetails.getThresholds({ insId: symbol.id, dEven: 20230201 })
 
       expect(data).toBeDefined()
+
+   }, commonTimeOut)
+
+})
+
+describe('Group', () => {
+
+})
+
+describe('Market Map', () => {
+
+   test('Get Market Map Data', async () => {
+
+      const { data, error } = await TseTmc.MarketMap.getMarketMap({
+         mapType: MapType.MarketValue
+      })
+
+      expect(data).toBeDefined()
+      expect(error).toBeUndefined()
+      expect(data!.length).toBeGreaterThan(100)
+      expect(data![0]).toHaveProperty('id')
 
    }, commonTimeOut)
 

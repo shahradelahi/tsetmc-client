@@ -1,7 +1,7 @@
 import { SafeReturn } from "../request";
-import { GetMarketMap, MapDataRow } from "./types";
+import { GetMarketMapParams, MapDataRow } from "./types";
 export * from './types';
-export declare function getMarketMap(params: GetMarketMap): Promise<SafeReturn<MapDataRow[]>>;
+export declare function getMarketMap(params: GetMarketMapParams): Promise<SafeReturn<MapDataRow[]>>;
 declare const _default: {
     getMarketMap: typeof getMarketMap;
 };

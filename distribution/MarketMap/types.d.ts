@@ -2,9 +2,12 @@ export declare enum MapType {
     MarketValue = 1,
     MarketVolume = 2
 }
-export interface GetMarketMap {
+export interface GetMarketMapParams {
     mapType: MapType;
-    hEven: number;
+    hEven?: number;
+    sector?: number;
+    market?: number;
+    size?: number;
 }
 export interface MapDataRow {
     id: string;

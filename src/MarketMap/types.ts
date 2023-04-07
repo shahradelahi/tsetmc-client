@@ -4,9 +4,12 @@ export enum MapType {
 }
 
 
-export interface GetMarketMap {
+export interface GetMarketMapParams {
    mapType: MapType
-   hEven: number
+   hEven?: number
+   sector?: number
+   market?: number
+   size?: number
 }
 
 export interface MapDataRow {
