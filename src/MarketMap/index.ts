@@ -37,3 +37,7 @@ export async function getMarketMap(params: GetMarketMap): Promise<SafeReturn<Map
    }
 }
 
+
+export default {
+   getMarketMap
+}

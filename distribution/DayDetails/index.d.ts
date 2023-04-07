@@ -8,3 +8,13 @@ export declare function getTrades(params: GetTradesParams): Promise<SafeReturn<T
 export declare function getTradersType(params: GetDayDetailsCommonParams): Promise<SafeReturn<TradersTypeData>>;
 export declare function getThresholds(params: GetDayDetailsCommonParams): Promise<SafeReturn<ThresholdsData>>;
 export declare function getShareholders(params: GetDayDetailsCommonParams): Promise<SafeReturn<ShareHolderDataRow[]>>;
+declare const _default: {
+    getPriceOverviewData: typeof getPriceOverviewData;
+    getPriceData: typeof getPriceData;
+    getOrderBookData: typeof getOrderBookData;
+    getTrades: typeof getTrades;
+    getTradersType: typeof getTradersType;
+    getThresholds: typeof getThresholds;
+    getShareholders: typeof getShareholders;
+};
+export default _default;

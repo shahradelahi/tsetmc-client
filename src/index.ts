@@ -1,6 +1,6 @@
-import * as DayDetails from './DayDetails/index'
-import * as Group from './Group/index'
-import * as MarketMap from './MarketMap/index'
+import DayDetails from './DayDetails/index'
+import Group from './Group/index'
+import MarketMap from './MarketMap/index'
 
 
 export default {
@@ -8,3 +8,7 @@ export default {
    Group,
    MarketMap,
 }
+
+export * from './DayDetails/index'
+export * from './Group/index'
+export * from './MarketMap/index'

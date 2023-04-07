@@ -243,4 +243,13 @@ async function getShareholders(params) {
     }
 }
 exports.getShareholders = getShareholders;
+exports.default = {
+    getPriceOverviewData,
+    getPriceData,
+    getOrderBookData,
+    getTrades,
+    getTradersType,
+    getThresholds,
+    getShareholders
+};
 //# sourceMappingURL=index.js.map

@@ -33,4 +33,7 @@ async function getAllGroups() {
     }
 }
 exports.getAllGroups = getAllGroups;
+exports.default = {
+    getAllGroups
+};
 //# sourceMappingURL=index.js.map

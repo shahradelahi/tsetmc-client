@@ -276,3 +276,13 @@ export async function getShareholders(params: GetDayDetailsCommonParams): Promis
       return { error: e }
    }
 }
+
+export default {
+   getPriceOverviewData,
+   getPriceData,
+   getOrderBookData,
+   getTrades,
+   getTradersType,
+   getThresholds,
+   getShareholders
+}

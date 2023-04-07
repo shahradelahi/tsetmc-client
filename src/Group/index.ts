@@ -22,3 +22,6 @@ export async function getAllGroups(): Promise<SafeReturn<Group[]>> {
    }
 }
 
+export default {
+   getAllGroups
+}

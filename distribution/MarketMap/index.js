@@ -48,4 +48,7 @@ async function getMarketMap(params) {
     }
 }
 exports.getMarketMap = getMarketMap;
+exports.default = {
+    getMarketMap
+};
 //# sourceMappingURL=index.js.map
