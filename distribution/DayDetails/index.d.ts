@@ -1,20 +1,7 @@
-import { GetDayDetailsCommonParams, GetTradesParams, OrderBookDataRow, PriceDataRow, PriceOverviewData, ShareHolderDataRow, ThresholdsData, TradeDataRow, TradersTypeData } from "./types";
-import { SafeReturn } from "../request";
-export * from './types';
-export declare function getPriceOverviewData(params: GetDayDetailsCommonParams): Promise<SafeReturn<PriceOverviewData>>;
-export declare function getPriceData(params: GetDayDetailsCommonParams): Promise<SafeReturn<PriceDataRow[]>>;
-export declare function getOrderBookData(params: GetDayDetailsCommonParams): Promise<SafeReturn<OrderBookDataRow[]>>;
-export declare function getTrades(params: GetTradesParams): Promise<SafeReturn<TradeDataRow>>;
-export declare function getTradersType(params: GetDayDetailsCommonParams): Promise<SafeReturn<TradersTypeData>>;
-export declare function getThresholds(params: GetDayDetailsCommonParams): Promise<SafeReturn<ThresholdsData>>;
-export declare function getShareholders(params: GetDayDetailsCommonParams): Promise<SafeReturn<ShareHolderDataRow[]>>;
-declare const _default: {
-    getPriceOverviewData: typeof getPriceOverviewData;
-    getPriceData: typeof getPriceData;
-    getOrderBookData: typeof getOrderBookData;
-    getTrades: typeof getTrades;
-    getTradersType: typeof getTradersType;
-    getThresholds: typeof getThresholds;
-    getShareholders: typeof getShareholders;
-};
-export default _default;
+export { default as getPriceOverview } from './getPriceOverview';
+export { default as getOrderBook } from './getOrderBook';
+export { default as getPriceData } from './getPriceData';
+export { default as getTrades } from './getTrades';
+export { default as getTradersType } from './getTradersType';
+export { default as getShareholders } from './getShareholders';
+export { default as getThresholds } from './getThresholds';
