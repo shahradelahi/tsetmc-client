@@ -11,7 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deepUpdate = void 0;
+exports.omitNulls = exports.deepUpdate = void 0;
 function deepUpdate(d1, d2) {
     var ret = __assign({}, d1);
     for (var _i = 0, _a = Object.entries(d2); _i < _a.length; _i++) {
@@ -29,4 +29,15 @@ function deepUpdate(d1, d2) {
     return ret;
 }
 exports.deepUpdate = deepUpdate;
+function omitNulls(obj) {
+    var ret = obj;
+    for (var _i = 0, _a = Object.entries(obj); _i < _a.length; _i++) {
+        var _b = _a[_i], key = _b[0], value = _b[1];
+        if (value === null) {
+            delete ret[key];
+        }
+    }
+    return ret;
+}
+exports.omitNulls = omitNulls;
 //# sourceMappingURL=miscUtils.js.map

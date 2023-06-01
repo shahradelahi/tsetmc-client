@@ -1,6 +1,6 @@
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 export declare function request(url: string, options?: Omit<AxiosRequestConfig, 'url'>): Promise<SafeReturn<AxiosResponse>>;
-export type SafeReturn<T, K = any> = LeastOne<{
+export type SafeReturn<T, K = unknown> = LeastOne<{
     data: T;
     error: K;
 }>;

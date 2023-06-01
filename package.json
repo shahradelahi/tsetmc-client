@@ -1,6 +1,6 @@
 {
   "name": "tsetmc-client",
-  "version": "1.0.1",
+  "version": "0.0.0",
   "description": "A simple client for communicating with TSETMC API",
   "main": "distribution/index.js",
   "types": "distribution/index.d.ts",
@@ -8,7 +8,8 @@
     "prepublishOnly": "npm run build",
     "build": "rimraf distribution && tsc -p tsconfig.json && git add .",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "eslint . --ext .ts"
   },
   "homepage": "https://github.com/shahradelahi/tsetmc-client#readme",
   "repository": {
@@ -43,7 +44,10 @@
     "@babel/preset-typescript": "^7.21.0",
     "@jest/globals": "^29.5.0",
     "@types/node": "18.15.11",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
     "babel-jest": "^29.5.0",
+    "eslint": "^8.41.0",
     "jest": "^29.5.0",
     "rimraf": "^4.4.1",
     "ts-node": "^10.9.1",

@@ -13,3 +13,19 @@ export function deepUpdate(d1: Record<string, any>, d2: Record<string, any>): Re
 
    return ret
 }
+
+export function omitNulls<T extends Record<string, any> = any>(obj: T): OmitNulls<T> {
+   const ret = obj
+
+   for (const [ key, value ] of Object.entries(obj)) {
+      if (value === null) {
+         delete ret[key]
+      }
+   }
+
+   return ret
+}
+
+type OmitNulls<T extends Record<string, any>> = {
+   [K in keyof T]: T[K] extends null ? never : T[K]
+}

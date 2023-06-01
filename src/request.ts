@@ -23,7 +23,7 @@ export async function request(url: string, options: Omit<AxiosRequestConfig, 'ur
    }
 }
 
-export type SafeReturn<T, K = any> = LeastOne<{
+export type SafeReturn<T, K = unknown> = LeastOne<{
    data: T,
    error: K
 }>

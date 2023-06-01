@@ -1,6 +1,6 @@
 import { request, SafeReturn } from "../request";
 import { even2JDate } from "../utils/timeUtils";
-import { GetDayDetailsCommonParams } from "../interface";
+import { GetDayDetailsCommonParams, SerializableRecord } from "../interface";
 
 export default async function getTrades(params: GetTradesParams): Promise<SafeReturn<TradeDataRow>> {
    try {
@@ -18,8 +18,8 @@ export default async function getTrades(params: GetTradesParams): Promise<SafeRe
       const data = response.data['tradeHistory']
 
       return {
-         data: data.map((row: any) => ({
-            time: even2JDate(dEven, row['hEven']),
+         data: data.map((row: SerializableRecord) => ({
+            time: even2JDate(dEven, Number(row['hEven'])),
             price: row['pTran'],
             volume: row['qTitTran']
          }))

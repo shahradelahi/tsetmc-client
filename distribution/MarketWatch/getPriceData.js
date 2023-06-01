@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -49,14 +38,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var request_1 = require("../request");
 function getWatchPrice(params) {
-    var _a;
     return __awaiter(this, void 0, void 0, function () {
-        var _b, _c, refId, _d, hEven, _e, response, error, data, sections, maxHeven, watchData, rows, _i, rows_1, row, cols, symbolId, heven, orderbookRows, _f, orderbookRows_1, row, _g, symbolId, rank, sCount, bCount, bPrice, sPrice, bVolume, sVolume, result, key, dataRow, e_1;
-        return __generator(this, function (_h) {
-            switch (_h.label) {
+        var _a, _b, refId, _c, hEven, _d, response, error, data, sections, maxHeven, watchData, rows, _i, rows_1, row, cols, symbolId, heven, orderbookRows, _e, orderbookRows_1, row, _f, symbolId, rank, sCount, bCount, bPrice, sPrice, bVolume, sVolume, orderbook, result, key, dataRow, orderbook, e_1;
+        return __generator(this, function (_g) {
+            switch (_g.label) {
                 case 0:
-                    _h.trys.push([0, 2, , 3]);
-                    _b = params || {}, _c = _b.refId, refId = _c === void 0 ? 0 : _c, _d = _b.hEven, hEven = _d === void 0 ? 0 : _d;
+                    _g.trys.push([0, 2, , 3]);
+                    _a = params || {}, _b = _a.refId, refId = _b === void 0 ? 0 : _b, _c = _a.hEven, hEven = _c === void 0 ? 0 : _c;
                     return [4 /*yield*/, (0, request_1.request)('http://old.tsetmc.com/tsev2/data/MarketWatchPlus.aspx', {
                             params: {
                                 h: hEven,
@@ -64,8 +52,7 @@ function getWatchPrice(params) {
                             }
                         })];
                 case 1:
-                    _e = _h.sent(), response = _e.data, error = _e.error;
-                    console.log({ response: response, error: error });
+                    _d = _g.sent(), response = _d.data, error = _d.error;
                     if (error)
                         return [2 /*return*/, { error: error }];
                     if (!response || !response.data)
@@ -118,27 +105,27 @@ function getWatchPrice(params) {
                         }
                     }
                     orderbookRows = sections[3].split(';');
-                    for (_f = 0, orderbookRows_1 = orderbookRows; _f < orderbookRows_1.length; _f++) {
-                        row = orderbookRows_1[_f];
-                        if (!row)
+                    for (_e = 0, orderbookRows_1 = orderbookRows; _e < orderbookRows_1.length; _e++) {
+                        row = orderbookRows_1[_e];
+                        if (!row) {
                             continue;
-                        _g = row.split(','), symbolId = _g[0], rank = _g[1], sCount = _g[2], bCount = _g[3], bPrice = _g[4], sPrice = _g[5], bVolume = _g[6], sVolume = _g[7];
-                        if (!((_a = watchData[symbolId]) === null || _a === void 0 ? void 0 : _a.orderbook)) {
-                            watchData[symbolId] = __assign({ orderbook: {
-                                    buyRows: [],
-                                    sellRows: []
-                                } }, watchData[symbolId]);
                         }
-                        watchData[symbolId].orderbook.buyRows[rank] = {
+                        _f = row.split(','), symbolId = _f[0], rank = _f[1], sCount = _f[2], bCount = _f[3], bPrice = _f[4], sPrice = _f[5], bVolume = _f[6], sVolume = _f[7];
+                        orderbook = watchData[symbolId].orderbook || {
+                            buyRows: [],
+                            sellRows: []
+                        };
+                        orderbook.buyRows[rank] = {
                             count: parseInt(bCount),
                             price: parseInt(bPrice),
                             volume: parseInt(bVolume)
                         };
-                        watchData[symbolId].orderbook.sellRows[rank] = {
+                        orderbook.sellRows[rank] = {
                             count: parseInt(sCount),
                             price: parseInt(sPrice),
                             volume: parseInt(sVolume)
                         };
+                        watchData[symbolId].orderbook = orderbook;
                     }
                     result = [];
                     for (key in watchData) {
@@ -146,6 +133,10 @@ function getWatchPrice(params) {
                         if (!dataRow.symbolId) {
                             continue;
                         }
+                        orderbook = watchData[key].orderbook || {
+                            buyRows: [],
+                            sellRows: []
+                        };
                         result.push({
                             symbolId: watchData[key].symbolId,
                             isin: watchData[key].isin,
@@ -171,14 +162,14 @@ function getWatchPrice(params) {
                             z: watchData[key].z,
                             yval: watchData[key].yval,
                             orderbook: {
-                                buyRows: Object.values(watchData[key].orderbook.buyRows),
-                                sellRows: Object.values(watchData[key].orderbook.sellRows)
+                                buyRows: Object.values(orderbook.buyRows),
+                                sellRows: Object.values(orderbook.sellRows)
                             }
                         });
                     }
                     return [2 /*return*/, { data: result }];
                 case 2:
-                    e_1 = _h.sent();
+                    e_1 = _g.sent();
                     return [2 /*return*/, { error: e_1 }];
                 case 3: return [2 /*return*/];
             }

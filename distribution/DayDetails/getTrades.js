@@ -57,7 +57,7 @@ function getTrades(params) {
                     data = response.data['tradeHistory'];
                     return [2 /*return*/, {
                             data: data.map(function (row) { return ({
-                                time: (0, timeUtils_1.even2JDate)(dEven_1, row['hEven']),
+                                time: (0, timeUtils_1.even2JDate)(dEven_1, Number(row['hEven'])),
                                 price: row['pTran'],
                                 volume: row['qTitTran']
                             }); })

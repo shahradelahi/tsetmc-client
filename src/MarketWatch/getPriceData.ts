@@ -19,7 +19,6 @@ export default async function getWatchPrice(params?: GetWatchPriceParams): Promi
             r: refId
          }
       })
-      console.log({ response, error })
 
       if (error) return { error }
       if (!response || !response.data) return { error: 'NoData' }
@@ -80,32 +79,30 @@ export default async function getWatchPrice(params?: GetWatchPriceParams): Promi
       // orderbook
       const orderbookRows = sections[3].split(';')
       for (const row of orderbookRows) {
-         if (!row) continue
+         if (!row) {
+            continue
+         }
 
          const [ symbolId, rank, sCount, bCount, bPrice, sPrice, bVolume, sVolume ] = row.split(',')
 
-         if (!watchData[symbolId]?.orderbook) {
-            watchData[symbolId] = {
-               orderbook: {
-                  buyRows: [],
-                  sellRows: []
-               },
-               ...watchData[symbolId]
-            }
+         const orderbook = watchData[symbolId].orderbook || {
+            buyRows: [],
+            sellRows: []
          }
 
-         watchData[symbolId].orderbook!.buyRows[rank] = {
+         orderbook.buyRows[rank] = {
             count: parseInt(bCount),
             price: parseInt(bPrice),
             volume: parseInt(bVolume)
          }
 
-         watchData[symbolId].orderbook!.sellRows[rank] = {
+         orderbook.sellRows[rank] = {
             count: parseInt(sCount),
             price: parseInt(sPrice),
             volume: parseInt(sVolume)
          }
 
+         watchData[symbolId].orderbook = orderbook
       }
 
       const result: WatchPrice[] = []
@@ -116,6 +113,11 @@ export default async function getWatchPrice(params?: GetWatchPriceParams): Promi
 
          if (!dataRow.symbolId) {
             continue
+         }
+
+         const orderbook = watchData[key].orderbook || {
+            buyRows: [],
+            sellRows: []
          }
 
          result.push({
@@ -143,8 +145,8 @@ export default async function getWatchPrice(params?: GetWatchPriceParams): Promi
             z: watchData[key].z,
             yval: watchData[key].yval,
             orderbook: {
-               buyRows: Object.values(watchData[key].orderbook!.buyRows),
-               sellRows: Object.values(watchData[key].orderbook!.sellRows)
+               buyRows: Object.values(orderbook.buyRows),
+               sellRows: Object.values(orderbook.sellRows)
             }
          } as WatchPrice)
       }
@@ -186,6 +188,7 @@ export type WatchPrice = {
       sellRows: OrderBookData[]
    }
 }
+
 export interface OrderBookData {
    count: number
    price: number
