@@ -13,15 +13,16 @@ export default async function getWatchPrice(params?: GetWatchPriceParams): Promi
       const {
          data: response,
          error
-      } = await request('http://www.tsetmc.com/tsev2/data/MarketWatchPlus.aspx', {
+      } = await request('http://old.tsetmc.com/tsev2/data/MarketWatchPlus.aspx', {
          params: {
             h: hEven,
             r: refId
          }
       })
+      console.log({ response, error })
 
       if (error) return { error }
-      if (!response) return ({ error: "No response" })
+      if (!response || !response.data) return { error: 'NoData' }
 
       const data = response.data
 

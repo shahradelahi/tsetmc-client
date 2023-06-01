@@ -57,7 +57,7 @@ function getWatchPrice(params) {
                 case 0:
                     _h.trys.push([0, 2, , 3]);
                     _b = params || {}, _c = _b.refId, refId = _c === void 0 ? 0 : _c, _d = _b.hEven, hEven = _d === void 0 ? 0 : _d;
-                    return [4 /*yield*/, (0, request_1.request)('http://www.tsetmc.com/tsev2/data/MarketWatchPlus.aspx', {
+                    return [4 /*yield*/, (0, request_1.request)('http://old.tsetmc.com/tsev2/data/MarketWatchPlus.aspx', {
                             params: {
                                 h: hEven,
                                 r: refId
@@ -65,10 +65,11 @@ function getWatchPrice(params) {
                         })];
                 case 1:
                     _e = _h.sent(), response = _e.data, error = _e.error;
+                    console.log({ response: response, error: error });
                     if (error)
                         return [2 /*return*/, { error: error }];
-                    if (!response)
-                        return [2 /*return*/, ({ error: "No response" })];
+                    if (!response || !response.data)
+                        return [2 /*return*/, { error: 'NoData' }];
                     data = response.data;
                     sections = data.split('@');
                     maxHeven = 0;

@@ -23,7 +23,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.timeUtils = exports.miscUtils = void 0;
+exports.fetchUtils = exports.timeUtils = exports.miscUtils = void 0;
 exports.miscUtils = __importStar(require("./miscUtils"));
 exports.timeUtils = __importStar(require("./timeUtils"));
+exports.fetchUtils = __importStar(require("./fetchUtils"));
 //# sourceMappingURL=index.js.map

@@ -1,10 +1,11 @@
 {
   "name": "tsetmc-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple client for communicating with TSETMC API",
   "main": "distribution/index.js",
   "types": "distribution/index.d.ts",
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "rimraf distribution && tsc -p tsconfig.json && git add .",
     "test": "jest",
     "test:watch": "jest --watch"
