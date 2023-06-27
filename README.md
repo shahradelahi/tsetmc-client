@@ -15,12 +15,12 @@ npm install tsetmc-client
 const tsetmc = require('tsetmc-client');
 
 const parameters = {
-   insId: '35331248532537562',
-   dEven: 20230201 // Date in format of YYYYMMDD
+  insId: '35331248532537562',
+  dEven: 20230201 // Date in format of YYYYMMDD
 }
 
 tsetmc.DayDetails.getPriceData(parameters).then((data) => {
-   console.log(data); // {"priceChange": 740.00, "low":15630.00, ...}
+  console.log(data); // {"priceChange": 740.00, "low":15630.00, ...}
 });
 ```
 
@@ -45,11 +45,20 @@ This is for getting list of available symbol groups
 
 * `getAllGroups()`: [`Promise<Group[]>`](docs/types.md#Group)
 
+### Instrument
+
+* `getInstrumentInfo({ insId })`: `Promise<InstrumentInfo>`
+* `getSupervisorMsg({ insId })`: `Promise<InstrumentSupervisorMsg>`
+
 ### MarketMap
 
 This object contains with methods for getting data from the [MarketMap](http://main.tsetmc.com/marketmap) page.
 
-* `getMarketMap()`: [`Promise<MapDataRow[]>`](docs/types.md#MapDataRow)
+* `getMarketMap()`: `Promise<MapDataRow[]>`
+
+### MarketWatch
+
+* `getPriceData({ refId, hEven })`: `Promise<WatchPrice>`
 
 ## Types
 

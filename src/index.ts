@@ -18,12 +18,16 @@ export type { PriceOverviewData } from './DayDetails/getPriceOverview'
 export type { PriceDataRow } from './DayDetails/getPriceData'
 export type { TradeDataRow } from './DayDetails/getTrades'
 export type { TradersTypeData, TradersTypeInfo, TradersTypeSubInfo } from './DayDetails/getTradersType'
+export type { SupervisionDetail } from './DayDetails/getSupervisionDetail'
 export type { ShareHolderDataRow, ShareHolder } from './DayDetails/getShareholders'
 export type { ThresholdsData } from './DayDetails/getThresholds'
 
 export type { GroupData } from './Group/getAllGroups'
 
+export type { BoardMember } from './Instrument/getBoardMembersHistory'
+export type { DPSData } from './Instrument/getDPSData'
 export type { InstrumentInfo, InstrumentEPS, InstrumentSector, InstrumentStaticThreshold } from './Instrument/getInstrumentInfo'
+export type { IntraDayPriceChart } from './Instrument/getIntraDayPriceChart'
 export type { InstrumentSupervisorMsg } from './Instrument/getSupervisorMsg'
 
 export type { MapDataRow } from './MarketMap/getMarketMap'

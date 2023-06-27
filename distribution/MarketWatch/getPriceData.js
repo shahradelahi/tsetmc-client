@@ -35,9 +35,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var request_1 = require("../request");
-function getWatchPrice(params) {
+var deepmerge_1 = __importDefault(require("deepmerge"));
+function getWatchPrice(params, options) {
+    if (options === void 0) { options = {}; }
     return __awaiter(this, void 0, void 0, function () {
         var _a, _b, refId, _c, hEven, _d, response, error, data, sections, maxHeven, watchData, rows, _i, rows_1, row, cols, symbolId, heven, orderbookRows, _e, orderbookRows_1, row, _f, symbolId, rank, sCount, bCount, bPrice, sPrice, bVolume, sVolume, orderbook, result, key, dataRow, orderbook, e_1;
         return __generator(this, function (_g) {
@@ -45,12 +50,12 @@ function getWatchPrice(params) {
                 case 0:
                     _g.trys.push([0, 2, , 3]);
                     _a = params || {}, _b = _a.refId, refId = _b === void 0 ? 0 : _b, _c = _a.hEven, hEven = _c === void 0 ? 0 : _c;
-                    return [4 /*yield*/, (0, request_1.request)('http://old.tsetmc.com/tsev2/data/MarketWatchPlus.aspx', {
+                    return [4 /*yield*/, (0, request_1.request)('http://old.tsetmc.com/tsev2/data/MarketWatchPlus.aspx', (0, deepmerge_1.default)({
                             params: {
                                 h: hEven,
                                 r: refId
                             }
-                        })];
+                        }, options))];
                 case 1:
                     _d = _g.sent(), response = _d.data, error = _d.error;
                     if (error)

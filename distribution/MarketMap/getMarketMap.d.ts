@@ -1,5 +1,5 @@
-import { SafeReturn } from "../request";
-export default function getMarketMap(params: GetMarketMapParams): Promise<SafeReturn<MapDataRow[]>>;
+import { RequestOptions, SafeReturn } from "../request";
+export default function getMarketMap(params: GetMarketMapParams, options?: RequestOptions): Promise<SafeReturn<MapDataRow[]>>;
 export declare enum MapType {
     MarketValue = 1,
     MarketVolume = 2

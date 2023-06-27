@@ -1,6 +1,6 @@
 import { GetDayDetailsCommonParams } from "../interface";
-import { SafeReturn } from "../request";
-export default function getPriceData(params: GetDayDetailsCommonParams): Promise<SafeReturn<PriceDataRow[]>>;
+import { RequestOptions, SafeReturn } from "../request";
+export default function getPriceData(params: GetDayDetailsCommonParams, options?: RequestOptions): Promise<SafeReturn<PriceDataRow[]>>;
 export interface PriceDataRow {
     time: Date;
     close: number;

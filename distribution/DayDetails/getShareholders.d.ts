@@ -1,6 +1,6 @@
 import { GetDayDetailsCommonParams } from "../interface";
-import { SafeReturn } from "../request";
-export default function getShareholders(params: GetDayDetailsCommonParams): Promise<SafeReturn<ShareHolderDataRow[]>>;
+import { RequestOptions, SafeReturn } from "../request";
+export default function getShareholders(params: GetDayDetailsCommonParams, options?: RequestOptions): Promise<SafeReturn<ShareHolderDataRow[]>>;
 export interface ShareHolder {
     id: string;
     name: string;

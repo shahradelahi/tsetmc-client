@@ -1,6 +1,6 @@
-import { SafeReturn } from "../request";
+import { RequestOptions, SafeReturn } from "../request";
 import { GetDayDetailsCommonParams } from "../interface";
-export default function getPriceOverviewData(params: GetDayDetailsCommonParams): Promise<SafeReturn<PriceOverviewData>>;
+export default function getPriceOverviewData(params: GetDayDetailsCommonParams, options?: RequestOptions): Promise<SafeReturn<PriceOverviewData>>;
 export interface PriceOverviewData {
     priceChange: number;
     low: number;

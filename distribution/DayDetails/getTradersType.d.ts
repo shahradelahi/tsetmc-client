@@ -1,6 +1,6 @@
 import { GetDayDetailsCommonParams } from "../interface";
-import { SafeReturn } from "../request";
-export default function getTradersType(params: GetDayDetailsCommonParams): Promise<SafeReturn<TradersTypeData>>;
+import { RequestOptions, SafeReturn } from "../request";
+export default function getTradersType(params: GetDayDetailsCommonParams, options?: RequestOptions): Promise<SafeReturn<TradersTypeData>>;
 export interface TradersTypeData {
     legal: TradersTypeInfo;
     real: TradersTypeInfo;

@@ -1,6 +1,6 @@
 import { GetDayDetailsCommonParams } from "../interface";
-import { SafeReturn } from "../request";
-export default function getOrderBook(params: GetDayDetailsCommonParams): Promise<SafeReturn<OrderBookDataRow[]>>;
+import { RequestOptions, SafeReturn } from "../request";
+export default function getOrderBook(params: GetDayDetailsCommonParams, options?: RequestOptions): Promise<SafeReturn<OrderBookDataRow[]>>;
 export interface OrderBookData {
     time: Date;
     count: number;

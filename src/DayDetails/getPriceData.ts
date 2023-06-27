@@ -1,15 +1,15 @@
 import { GetDayDetailsCommonParams } from "../interface";
-import { request, SafeReturn } from "../request";
-import { even2JDate } from "../utils/timeUtils";
+import { request, RequestOptions, SafeReturn } from "../request";
+import { even2JDate } from "../utils";
 
-export default async function getPriceData(params: GetDayDetailsCommonParams): Promise<SafeReturn<PriceDataRow[]>> {
+export default async function getPriceData(params: GetDayDetailsCommonParams, options: RequestOptions = {}): Promise<SafeReturn<PriceDataRow[]>> {
    try {
       const { insId, dEven } = params
 
       const {
          data: response,
          error
-      } = await request(`http://cdn.tsetmc.com/api/ClosingPrice/GetClosingPriceHistory/${insId}/${dEven}`)
+      } = await request(`http://cdn.tsetmc.com/api/ClosingPrice/GetClosingPriceHistory/${insId}/${dEven}`, options)
 
       if (error) return { error }
       if (!response) return ({ error: "No response" })

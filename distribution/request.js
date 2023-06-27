@@ -52,6 +52,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.request = void 0;
 var axios_1 = __importDefault(require("axios"));
+var deepmerge_1 = __importDefault(require("deepmerge"));
+var fetchUtils_1 = require("./utils/fetchUtils");
 function request(url, options) {
     if (options === void 0) { options = {}; }
     return __awaiter(this, void 0, void 0, function () {
@@ -60,7 +62,12 @@ function request(url, options) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, axios_1.default.request(__assign({ url: url, method: "GET", headers: __assign({ 'Accept': "ext/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7", 'Connection': "keep-alive", 'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36", 'X-Requested-With': "XMLHttpRequest" }, options.headers || {}) }, options))];
+                    return [4 /*yield*/, axios_1.default.request((0, deepmerge_1.default)({
+                            url: url,
+                            method: "GET",
+                            headers: __assign(__assign({}, (0, fetchUtils_1.fakeBrowserHeaders)()), { 'Accept': "ext/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7", 'Connection': "keep-alive", 'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36", 'X-Requested-With': "XMLHttpRequest" }),
+                            timeout: 10000
+                        }, options))];
                 case 1:
                     response = _a.sent();
                     return [2 /*return*/, { data: response }];

@@ -1,5 +1,5 @@
-import { SafeReturn } from "../request";
-export default function getAllGroups(): Promise<SafeReturn<GroupData[]>>;
+import { RequestOptions, SafeReturn } from "../request";
+export default function getAllGroups(options?: RequestOptions): Promise<SafeReturn<GroupData[]>>;
 export declare enum GroupType {
     PAPER = "PAPER",
     INDUSTRY = "INDUSTRIAL"

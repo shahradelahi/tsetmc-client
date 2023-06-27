@@ -1,9 +1,9 @@
-import { SafeReturn } from "../request";
+import { RequestOptions, SafeReturn } from "../request";
 export type GetWatchPriceParams = {
     refId: string;
     hEven: string;
 };
-export default function getWatchPrice(params?: GetWatchPriceParams): Promise<SafeReturn<WatchPrice[]>>;
+export default function getWatchPrice(params?: GetWatchPriceParams, options?: RequestOptions): Promise<SafeReturn<WatchPrice[]>>;
 export type WatchPrice = {
     symbolId: string;
     isin: string;

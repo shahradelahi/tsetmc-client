@@ -35,11 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MapType = void 0;
 var request_1 = require("../request");
 var timeUtils_1 = require("../utils/timeUtils");
-function getMarketMap(params) {
+var deepmerge_1 = __importDefault(require("deepmerge"));
+function getMarketMap(params, options) {
+    if (options === void 0) { options = {}; }
     return __awaiter(this, void 0, void 0, function () {
         var _a, mapType, _b, hEven, _c, market, _d, sector, _e, size, _f, response, error, e_1;
         return __generator(this, function (_g) {
@@ -50,7 +55,7 @@ function getMarketMap(params) {
                     if (hEven !== 0 && !(0, timeUtils_1.hEvenValidation)(hEven)) {
                         return [2 /*return*/, { error: new Error("Invalid hEven") }];
                     }
-                    return [4 /*yield*/, (0, request_1.request)('http://cdn.tsetmc.com/api/ClosingPrice/GetMarketMap', {
+                    return [4 /*yield*/, (0, request_1.request)('http://cdn.tsetmc.com/api/ClosingPrice/GetMarketMap', (0, deepmerge_1.default)({
                             params: {
                                 market: market,
                                 sector: sector,
@@ -58,7 +63,7 @@ function getMarketMap(params) {
                                 typeSelected: mapType,
                                 hEven: hEven
                             }
-                        })];
+                        }, options))];
                 case 1:
                     _f = _g.sent(), response = _f.data, error = _f.error;
                     if (error)

@@ -1,4 +1,4 @@
-import { SafeReturn } from "../request";
+import { RequestOptions, SafeReturn } from "../request";
 export type InstrumentInfo = {
     eps: InstrumentEPS;
     sector: InstrumentSector;
@@ -57,4 +57,4 @@ export type InstrumentStaticThreshold = {
 export type GetInstrumentInfoParams = {
     insId: string;
 };
-export default function getInstrumentInfo(params: GetInstrumentInfoParams): Promise<SafeReturn<InstrumentInfo>>;
+export default function getInstrumentInfo(params: GetInstrumentInfoParams, options?: RequestOptions): Promise<SafeReturn<InstrumentInfo>>;

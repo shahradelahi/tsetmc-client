@@ -1,6 +1,6 @@
 export interface GetDayDetailsCommonParams {
-   insId: string
-   dEven: number
+  insId: string
+  dEven: number
 }
 
 export type Serializable = string | number | boolean | null

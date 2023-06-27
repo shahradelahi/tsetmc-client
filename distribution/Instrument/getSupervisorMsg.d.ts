@@ -1,4 +1,4 @@
-import { SafeReturn } from "../request";
+import { RequestOptions, SafeReturn } from "../request";
 export type InstrumentSupervisorMsg = {
     id: number;
     dEven: number;
@@ -10,4 +10,4 @@ export type InstrumentSupervisorMsg = {
 export type GetSupervisorMessagesParams = {
     insId: string;
 };
-export default function getSupervisorMsg(params: GetSupervisorMessagesParams): Promise<SafeReturn<InstrumentSupervisorMsg[]>>;
+export default function getSupervisorMsg(params: GetSupervisorMessagesParams, options?: RequestOptions): Promise<SafeReturn<InstrumentSupervisorMsg[]>>;

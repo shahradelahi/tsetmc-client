@@ -38,7 +38,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var request_1 = require("../request");
 var timeUtils_1 = require("../utils/timeUtils");
-function getShareholders(params) {
+function getShareholders(params, options) {
+    if (options === void 0) { options = {}; }
     return __awaiter(this, void 0, void 0, function () {
         var insId, dEven_1, _a, response, error, data, e_1;
         return __generator(this, function (_b) {
@@ -46,7 +47,7 @@ function getShareholders(params) {
                 case 0:
                     _b.trys.push([0, 2, , 3]);
                     insId = params.insId, dEven_1 = params.dEven;
-                    return [4 /*yield*/, (0, request_1.request)("http://cdn.tsetmc.com/api/Shareholder/".concat(insId, "/").concat(dEven_1))];
+                    return [4 /*yield*/, (0, request_1.request)("http://cdn.tsetmc.com/api/Shareholder/".concat(insId, "/").concat(dEven_1), options)];
                 case 1:
                     _a = _b.sent(), response = _a.data, error = _a.error;
                     if (error)
