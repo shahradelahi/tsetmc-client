@@ -1,6 +1,6 @@
 {
   "name": "tsetmc-client",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A simple client for communicating with TSETMC API",
   "main": "distribution/index.js",
   "types": "distribution/index.d.ts",
