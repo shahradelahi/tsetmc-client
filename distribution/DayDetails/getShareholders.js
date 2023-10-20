@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var request_1 = require("../request");
-var timeUtils_1 = require("../utils/timeUtils");
+var utils_1 = require("../utils");
 function getShareholders(params, options) {
     if (options === void 0) { options = {}; }
     return __awaiter(this, void 0, void 0, function () {
@@ -57,7 +57,7 @@ function getShareholders(params, options) {
                     data = response.data['shareShareholder'];
                     return [2 /*return*/, {
                             data: data.map(function (row) { return ({
-                                date: (0, timeUtils_1.even2JDate)(dEven_1, row['dEven']),
+                                date: (0, utils_1.even2JDate)(dEven_1, row['dEven']),
                                 shareholder: {
                                     id: row['shareHolderId'].toString(),
                                     name: row['shareHolderName']

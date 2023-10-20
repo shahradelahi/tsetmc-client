@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var request_1 = require("../request");
-var timeUtils_1 = require("../utils/timeUtils");
+var utils_1 = require("../utils");
 function getTrades(params, options) {
     if (options === void 0) { options = {}; }
     return __awaiter(this, void 0, void 0, function () {
@@ -58,7 +58,7 @@ function getTrades(params, options) {
                     data = response.data['tradeHistory'];
                     return [2 /*return*/, {
                             data: data.map(function (row) { return ({
-                                time: (0, timeUtils_1.even2JDate)(dEven_1, Number(row['hEven'])),
+                                time: (0, utils_1.even2JDate)(dEven_1, Number(row['hEven'])),
                                 price: row['pTran'],
                                 volume: row['qTitTran']
                             }); })

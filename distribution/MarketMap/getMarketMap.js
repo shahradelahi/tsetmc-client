@@ -41,7 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MapType = void 0;
 var request_1 = require("../request");
-var timeUtils_1 = require("../utils/timeUtils");
+var utils_1 = require("../utils");
 var deepmerge_1 = __importDefault(require("deepmerge"));
 function getMarketMap(params, options) {
     if (options === void 0) { options = {}; }
@@ -52,7 +52,7 @@ function getMarketMap(params, options) {
                 case 0:
                     _g.trys.push([0, 2, , 3]);
                     _a = params.mapType, mapType = _a === void 0 ? MapType.MarketValue : _a, _b = params.hEven, hEven = _b === void 0 ? 0 : _b, _c = params.market, market = _c === void 0 ? 0 : _c, _d = params.sector, sector = _d === void 0 ? 0 : _d, _e = params.size, size = _e === void 0 ? 1920 : _e;
-                    if (hEven !== 0 && !(0, timeUtils_1.hEvenValidation)(hEven)) {
+                    if (hEven !== 0 && !(0, utils_1.hEvenValidation)(hEven)) {
                         return [2 /*return*/, { error: new Error("Invalid hEven") }];
                     }
                     return [4 /*yield*/, (0, request_1.request)('http://cdn.tsetmc.com/api/ClosingPrice/GetMarketMap', (0, deepmerge_1.default)({
@@ -99,5 +99,5 @@ var MapType;
 (function (MapType) {
     MapType[MapType["MarketValue"] = 1] = "MarketValue";
     MapType[MapType["MarketVolume"] = 2] = "MarketVolume";
-})(MapType = exports.MapType || (exports.MapType = {}));
+})(MapType || (exports.MapType = MapType = {}));
 //# sourceMappingURL=getMarketMap.js.map

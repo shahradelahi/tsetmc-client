@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -46,38 +35,59 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.request = void 0;
-var axios_1 = __importDefault(require("axios"));
-var deepmerge_1 = __importDefault(require("deepmerge"));
-var utils_1 = require("./utils");
-function request(url, options) {
-    if (options === void 0) { options = {}; }
+function getClientTypeAll() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, error_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var response, text, watchData, rows, _i, rows_1, row, _a, symbolId, r_buy_c, l_buy_c, r_buy_v, l_buy_v, r_sell_c, l_sell_c, r_sell_v, l_sell_v, e_1;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, axios_1.default.request((0, deepmerge_1.default)({
-                            url: url,
-                            method: "GET",
-                            headers: __assign(__assign({}, (0, utils_1.fakeBrowserHeaders)()), { 'Accept': "ext/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7", 'Connection': "keep-alive", 'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36", 'X-Requested-With': "XMLHttpRequest" }),
-                            timeout: 10000
-                        }, options))];
+                    _b.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, fetch('http://old.tsetmc.com/tsev2/data/ClientTypeAll.aspx')];
                 case 1:
-                    response = _a.sent();
-                    return [2 /*return*/, { data: response }];
+                    response = _b.sent();
+                    return [4 /*yield*/, response.text()];
                 case 2:
-                    error_1 = _a.sent();
-                    return [2 /*return*/, { error: error_1 }];
-                case 3: return [2 /*return*/];
+                    text = _b.sent();
+                    watchData = {};
+                    rows = text.split(';');
+                    for (_i = 0, rows_1 = rows; _i < rows_1.length; _i++) {
+                        row = rows_1[_i];
+                        if (!row) {
+                            continue;
+                        }
+                        _a = row.split(','), symbolId = _a[0], r_buy_c = _a[1], l_buy_c = _a[2], r_buy_v = _a[3], l_buy_v = _a[4], r_sell_c = _a[5], l_sell_c = _a[6], r_sell_v = _a[7], l_sell_v = _a[8];
+                        watchData[symbolId] = {
+                            legal: {
+                                buy: {
+                                    volume: parseInt(l_buy_v),
+                                    count: parseInt(l_buy_c),
+                                },
+                                sell: {
+                                    volume: parseInt(l_sell_v),
+                                    count: parseInt(l_sell_c),
+                                }
+                            },
+                            real: {
+                                buy: {
+                                    volume: parseInt(r_buy_v),
+                                    count: parseInt(r_buy_c),
+                                },
+                                sell: {
+                                    volume: parseInt(r_sell_v),
+                                    count: parseInt(r_sell_c),
+                                }
+                            },
+                        };
+                    }
+                    return [2 /*return*/, { data: watchData }];
+                case 3:
+                    e_1 = _b.sent();
+                    return [2 /*return*/, { error: e_1 }];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
-exports.request = request;
-//# sourceMappingURL=request.js.map
+exports.default = getClientTypeAll;
+//# sourceMappingURL=getClientTypeAll.js.map

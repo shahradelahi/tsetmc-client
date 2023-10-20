@@ -69,5 +69,5 @@ var GroupType;
 (function (GroupType) {
     GroupType["PAPER"] = "PAPER";
     GroupType["INDUSTRY"] = "INDUSTRIAL";
-})(GroupType = exports.GroupType || (exports.GroupType = {}));
+})(GroupType || (exports.GroupType = GroupType = {}));
 //# sourceMappingURL=getAllGroups.js.map

@@ -52,7 +52,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var request_1 = require("../request");
 var deepmerge_1 = __importDefault(require("deepmerge"));
-var localeUtils_1 = require("../utils/localeUtils");
+var utils_1 = require("../utils");
 function getBoardMembersHistory(params, options) {
     if (options === void 0) { options = {}; }
     return __awaiter(this, void 0, void 0, function () {
@@ -63,7 +63,7 @@ function getBoardMembersHistory(params, options) {
                     _b.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, (0, request_1.request)('http://old.tsetmc.com/tsev2/data/CodalContent.aspx', (0, deepmerge_1.default)({
                             params: {
-                                s: (0, localeUtils_1.faToAr)(params.symbol),
+                                s: (0, utils_1.faToAr)(params.symbol),
                                 r: '12'
                             }
                         }, options))];

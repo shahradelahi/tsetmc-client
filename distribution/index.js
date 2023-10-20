@@ -35,6 +35,8 @@ exports.MarketWatch = MarketWatch;
 var Instrument = __importStar(require("./Instrument/index"));
 exports.Instrument = Instrument;
 exports.utils = __importStar(require("./utils/index"));
+var TseTmc = { DayDetails: DayDetails, Group: Group, MarketMap: MarketMap, MarketWatch: MarketWatch, Instrument: Instrument };
+exports.default = TseTmc;
 // ---- Enums
 var getAllGroups_1 = require("./Group/getAllGroups");
 Object.defineProperty(exports, "GroupType", { enumerable: true, get: function () { return getAllGroups_1.GroupType; } });

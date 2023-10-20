@@ -8,6 +8,9 @@ export * as utils from './utils/index'
 
 export { DayDetails, Group, MarketMap, MarketWatch, Instrument }
 
+const TseTmc = { DayDetails, Group, MarketMap, MarketWatch, Instrument }
+export default TseTmc
+
 // ---- Enums
 export { GroupType } from './Group/getAllGroups'
 export { MapType } from './MarketMap/getMarketMap'
@@ -32,4 +35,6 @@ export type { InstrumentSupervisorMsg } from './Instrument/getSupervisorMsg'
 
 export type { MapDataRow } from './MarketMap/getMarketMap'
 
-export type { WatchPrice } from './MarketWatch/getPriceData'
+export type { TraderType, WatchTradersTypeData, WatchTradersType } from './MarketWatch/getClientTypeAll'
+export type { GetWatchPriceParams, WatchPrice } from './MarketWatch/getPriceData'
+export type { WatchStatsData, WatchStats } from './MarketWatch/getWatchStats'

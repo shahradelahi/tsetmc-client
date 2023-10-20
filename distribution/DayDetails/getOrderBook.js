@@ -48,7 +48,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var request_1 = require("../request");
-var timeUtils_1 = require("../utils/timeUtils");
+var utils_1 = require("../utils");
 function getOrderBook(params, options) {
     if (options === void 0) { options = {}; }
     return __awaiter(this, void 0, void 0, function () {
@@ -77,7 +77,7 @@ function getOrderBook(params, options) {
                     for (_i = 0, data_1 = data; _i < data_1.length; _i++) {
                         row = data_1[_i];
                         heven = row['hEven'];
-                        t = (0, timeUtils_1.even2JDate)(dEven_1, heven);
+                        t = (0, utils_1.even2JDate)(dEven_1, heven);
                         buyRow = {
                             time: t,
                             count: row['zOrdMeDem'],
@@ -105,7 +105,7 @@ function getOrderBook(params, options) {
                         prevData = hevenMap_1[heven];
                     }
                     return [2 /*return*/, {
-                            data: Object.keys(hevenMap_1).map(function (key) { return (__assign({ time: (0, timeUtils_1.even2JDate)(dEven_1, parseInt(key)) }, hevenMap_1[key])); })
+                            data: Object.keys(hevenMap_1).map(function (key) { return (__assign({ time: (0, utils_1.even2JDate)(dEven_1, parseInt(key)) }, hevenMap_1[key])); })
                         }];
                 case 2:
                     e_1 = _b.sent();

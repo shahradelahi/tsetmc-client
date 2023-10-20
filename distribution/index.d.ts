@@ -5,6 +5,14 @@ import * as MarketWatch from './MarketWatch/index';
 import * as Instrument from './Instrument/index';
 export * as utils from './utils/index';
 export { DayDetails, Group, MarketMap, MarketWatch, Instrument };
+declare const TseTmc: {
+    DayDetails: typeof DayDetails;
+    Group: typeof Group;
+    MarketMap: typeof MarketMap;
+    MarketWatch: typeof MarketWatch;
+    Instrument: typeof Instrument;
+};
+export default TseTmc;
 export { GroupType } from './Group/getAllGroups';
 export { MapType } from './MarketMap/getMarketMap';
 export type { PriceOverviewData } from './DayDetails/getPriceOverview';
@@ -21,4 +29,6 @@ export type { InstrumentInfo, InstrumentEPS, InstrumentSector, InstrumentStaticT
 export type { IntraDayPriceChart } from './Instrument/getIntraDayPriceChart';
 export type { InstrumentSupervisorMsg } from './Instrument/getSupervisorMsg';
 export type { MapDataRow } from './MarketMap/getMarketMap';
-export type { WatchPrice } from './MarketWatch/getPriceData';
+export type { TraderType, WatchTradersTypeData, WatchTradersType } from './MarketWatch/getClientTypeAll';
+export type { GetWatchPriceParams, WatchPrice } from './MarketWatch/getPriceData';
+export type { WatchStatsData, WatchStats } from './MarketWatch/getWatchStats';
