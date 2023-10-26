@@ -40,6 +40,8 @@ jobs:
             npm version ${{ github.event.release.tag_name }} --no-git-tag-version
           fi
 
+      - run: npm install
+
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
