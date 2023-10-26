@@ -17,8 +17,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-        run: pnpm install --frozen-lockfile
-      - run: npm run build
+
+      - run: |
+          pnpm install --frozen-lockfile
+          npm run build
 
   publish-npm:
     needs: build
@@ -29,7 +31,15 @@ jobs:
         with:
           node-version: 18
           registry-url: https://registry.npmjs.org/
-      - run: npm version ${{ github.event.release.tag_name }} --no-git-tag-version
+
+      - run: |
+          if grep -q '"version": "${{ github.event.release.tag_name }}"' package.json; then
+            echo "Version already set to ${{ github.event.release.tag_name }}"
+          else
+            echo "Setting version to ${{ github.event.release.tag_name }}"
+            npm version ${{ github.event.release.tag_name }} --no-git-tag-version
+          fi
+
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
