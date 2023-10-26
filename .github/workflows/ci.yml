@@ -1,4 +1,4 @@
-name: CI Job
+name: CI Type-check
 
 on:
   push:
