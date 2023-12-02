@@ -17,7 +17,7 @@ const tsetmc = require('tsetmc-client');
 const parameters = {
   insId: '35331248532537562',
   dEven: 20230201 // Date in format of YYYYMMDD
-}
+};
 
 tsetmc.DayDetails.getPriceData(parameters).then((data) => {
   console.log(data); // {"priceChange": 740.00, "low":15630.00, ...}
@@ -31,34 +31,34 @@ tsetmc.DayDetails.getPriceData(parameters).then((data) => {
 This object contains with methods for getting data from
 the [DayDetails](http://www.tsetmc.com/Loader.aspx?ParTree=151311&i=35331248532537562#) page.
 
-* `getPriceOverview({ insId, dEven })`: [`Promise<PriceOverviewData>`](docs/types.md#PriceOverviewData)
-* `getPriceData({ insId, dEven })`: [`Promise<PriceDataRow[]>`](docs/types.md#PriceDataRow)
-* `getOrderBookData({ insId, dEven })`: [`Promise<OrderBookDataRow[]>`](docs/types.md#OrderBookDataRow)
-* `getTrades({ insId, dEven, summarize })`: [`Promise<TradeDataRow[]>`](docs/types.md#TradeDataRow)
-* `getTradersType({ insId, dEven })`: [`Promise<TradersTypeData[]>`](docs/types.md#TradersTypeData)
-* `getThresholds({ insId, dEven })`: [`Promise<ThresholdsData[]>`](docs/types.md#ThresholdsData)
-* `getShareholders({ insId, dEven })`: [`Promise<ShareHolderDataRow>`](docs/types.md#ShareHolderDataRow)
+- `getPriceOverview({ insId, dEven })`: [`Promise<PriceOverviewData>`](docs/types.md#PriceOverviewData)
+- `getPriceData({ insId, dEven })`: [`Promise<PriceDataRow[]>`](docs/types.md#PriceDataRow)
+- `getOrderBookData({ insId, dEven })`: [`Promise<OrderBookDataRow[]>`](docs/types.md#OrderBookDataRow)
+- `getTrades({ insId, dEven, summarize })`: [`Promise<TradeDataRow[]>`](docs/types.md#TradeDataRow)
+- `getTradersType({ insId, dEven })`: [`Promise<TradersTypeData[]>`](docs/types.md#TradersTypeData)
+- `getThresholds({ insId, dEven })`: [`Promise<ThresholdsData[]>`](docs/types.md#ThresholdsData)
+- `getShareholders({ insId, dEven })`: [`Promise<ShareHolderDataRow>`](docs/types.md#ShareHolderDataRow)
 
 ### Group
 
 This is for getting list of available symbol groups
 
-* `getAllGroups()`: [`Promise<Group[]>`](docs/types.md#Group)
+- `getAllGroups()`: [`Promise<Group[]>`](docs/types.md#Group)
 
 ### Instrument
 
-* `getInstrumentInfo({ insId })`: `Promise<InstrumentInfo>`
-* `getSupervisorMsg({ insId })`: `Promise<InstrumentSupervisorMsg>`
+- `getInstrumentInfo({ insId })`: `Promise<InstrumentInfo>`
+- `getSupervisorMsg({ insId })`: `Promise<InstrumentSupervisorMsg>`
 
 ### MarketMap
 
 This object contains with methods for getting data from the [MarketMap](http://main.tsetmc.com/marketmap) page.
 
-* `getMarketMap()`: `Promise<MapDataRow[]>`
+- `getMarketMap()`: `Promise<MapDataRow[]>`
 
 ### MarketWatch
 
-* `getPriceData({ refId, hEven })`: `Promise<WatchPrice>`
+- `getPriceData({ refId, hEven })`: `Promise<WatchPrice>`
 
 ## Types
 
@@ -77,5 +77,3 @@ If you like this project, please consider donating to support it's development.
 [![Give a Star](https://img.shields.io/github/stars/shahradelahi/tsetmc-client.svg?style=social&label=Star)](https://github.com/shahradelahi/tsetmc-client)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/shahradelahi)
 [![Contact for Further Support](https://img.shields.io/badge/Contact%20for%20Further%20Support-Telegram-blue.svg)](https://t.me/shahradelahi)
-
-

@@ -1,1 +1,1 @@
-export { default as getMarketMap } from './getMarketMap'
+export { default as getMarketMap } from './getMarketMap';

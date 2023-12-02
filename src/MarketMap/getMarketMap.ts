@@ -1,30 +1,42 @@
-import { request, RequestOptions, SafeReturn } from "../request";
-import { hEvenValidation } from "../utils";
-import deepmerge from "deepmerge";
+import { request, RequestOptions, SafeReturn } from '../request';
+import { hEvenValidation } from '../utils';
+import deepmerge from 'deepmerge';
 
-export default async function getMarketMap(params: GetMarketMapParams, options: RequestOptions = {}): Promise<SafeReturn<MapDataRow[]>> {
+export default async function getMarketMap(
+  params: GetMarketMapParams,
+  options: RequestOptions = {}
+): Promise<SafeReturn<MapDataRow[]>> {
   try {
-    const { mapType = MapType.MarketValue, hEven = 0, market = 0, sector = 0, size = 1920 } = params
+    const {
+      mapType = MapType.MarketValue,
+      hEven = 0,
+      market = 0,
+      sector = 0,
+      size = 1920
+    } = params;
 
     if (hEven !== 0 && !hEvenValidation(hEven)) {
-      return { error: new Error("Invalid hEven") }
+      return { error: new Error('Invalid hEven') };
     }
 
-    const {
-      data: response,
-      error
-    } = await request('http://cdn.tsetmc.com/api/ClosingPrice/GetMarketMap', deepmerge({
-      params: {
-        market,
-        sector,
-        size,
-        typeSelected: mapType,
-        hEven
-      }
-    }, options))
+    const { data: response, error } = await request(
+      'http://cdn.tsetmc.com/api/ClosingPrice/GetMarketMap',
+      deepmerge(
+        {
+          params: {
+            market,
+            sector,
+            size,
+            typeSelected: mapType,
+            hEven
+          }
+        },
+        options
+      )
+    );
 
-    if (error) return { error }
-    if (!response) return ({ error: "No response" })
+    if (error) return { error };
+    if (!response) return { error: 'No response' };
 
     return {
       data: response.data.map((row: any) => ({
@@ -41,39 +53,39 @@ export default async function getMarketMap(params: GetMarketMapParams, options: 
         priceChangePercent: row['priceChangePercent'],
         percent: row['percent']
       }))
-    }
+    };
   } catch (e) {
-    return { error: e }
+    return { error: e };
   }
 }
 
 export enum MapType {
   MarketValue = 1,
-  MarketVolume = 2,
+  MarketVolume = 2
 }
 
 export interface GetMarketMapParams {
-  mapType: MapType
-  hEven?: number
-  sector?: number
-  market?: number
-  size?: number
+  mapType: MapType;
+  hEven?: number;
+  sector?: number;
+  market?: number;
+  size?: number;
 }
 
 export interface MapDataRow {
-  id: string
-  shortName: string
-  longName: string
+  id: string;
+  shortName: string;
+  longName: string;
 
-  close: number
-  last: number
-  volume: number
-  value: number
-  count: number
+  close: number;
+  last: number;
+  volume: number;
+  value: number;
+  count: number;
 
-  groupName: string
+  groupName: string;
 
-  color: string
-  priceChangePercent: number
-  percent: number
+  color: string;
+  priceChangePercent: number;
+  percent: number;
 }

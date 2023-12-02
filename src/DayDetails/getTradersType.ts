@@ -1,19 +1,22 @@
-import { GetDayDetailsCommonParams } from "../interface";
-import { request, RequestOptions, SafeReturn } from "../request";
+import { GetDayDetailsCommonParams } from '../interface';
+import { request, RequestOptions, SafeReturn } from '../request';
 
-export default async function getTradersType(params: GetDayDetailsCommonParams, options: RequestOptions = {}): Promise<SafeReturn<TradersTypeData>> {
+export default async function getTradersType(
+  params: GetDayDetailsCommonParams,
+  options: RequestOptions = {}
+): Promise<SafeReturn<TradersTypeData>> {
   try {
-    const { insId, dEven } = params
+    const { insId, dEven } = params;
 
-    const {
-      data: response,
-      error
-    } = await request(`http://cdn.tsetmc.com/api/ClientType/GetClientTypeHistory/${insId}/${dEven}`, options)
+    const { data: response, error } = await request(
+      `http://cdn.tsetmc.com/api/ClientType/GetClientTypeHistory/${insId}/${dEven}`,
+      options
+    );
 
-    if (error) return { error }
-    if (!response) return ({ error: "No response" })
+    if (error) return { error };
+    if (!response) return { error: 'No response' };
 
-    const data = response.data['clientType']
+    const data = response.data['clientType'];
 
     return {
       data: {
@@ -42,24 +45,24 @@ export default async function getTradersType(params: GetDayDetailsCommonParams, 
           }
         }
       }
-    }
+    };
   } catch (e) {
-    return { error: e }
+    return { error: e };
   }
 }
 
 export interface TradersTypeData {
-  legal: TradersTypeInfo
-  real: TradersTypeInfo
+  legal: TradersTypeInfo;
+  real: TradersTypeInfo;
 }
 
 export interface TradersTypeInfo {
-  buy: TradersTypeSubInfo
-  sell: TradersTypeSubInfo
+  buy: TradersTypeSubInfo;
+  sell: TradersTypeSubInfo;
 }
 
 export interface TradersTypeSubInfo {
-  count: number
-  volume: number
-  value: number
+  count: number;
+  volume: number;
+  value: number;
 }

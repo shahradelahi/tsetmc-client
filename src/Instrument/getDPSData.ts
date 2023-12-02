@@ -1,44 +1,58 @@
-import { request, RequestOptions, SafeReturn } from "../request";
-import deepmerge from "deepmerge";
-import { faToAr } from "../utils";
+import { request, RequestOptions, SafeReturn } from '../request';
+import deepmerge from 'deepmerge';
+import { faToAr } from '../utils';
 
 export type GetDPSDataParams = {
-  symbol: string
-}
+  symbol: string;
+};
 
 export type DPSData = {
-  publishDate: string
-  meetingDate: string
-  fiscalYear: string
-  profitAfterTax: string
-  profitToAllocate: string
-  profitAccumulated: string
-  cashProfitPerShare: string
-}
+  publishDate: string;
+  meetingDate: string;
+  fiscalYear: string;
+  profitAfterTax: string;
+  profitToAllocate: string;
+  profitAccumulated: string;
+  cashProfitPerShare: string;
+};
 
-export default async function getDPSData(params: GetDPSDataParams, options: RequestOptions = {}): Promise<SafeReturn<DPSData[]>> {
+export default async function getDPSData(
+  params: GetDPSDataParams,
+  options: RequestOptions = {}
+): Promise<SafeReturn<DPSData[]>> {
   try {
-    const {
-      data: response,
-      error
-    } = await request('http://old.tsetmc.com/tsev2/data/DPSData.aspx', deepmerge({
-      params: {
-        s: faToAr(params.symbol)
-      }
-    }, options))
+    const { data: response, error } = await request(
+      'http://old.tsetmc.com/tsev2/data/DPSData.aspx',
+      deepmerge(
+        {
+          params: {
+            s: faToAr(params.symbol)
+          }
+        },
+        options
+      )
+    );
 
     if (error) {
-      return { error }
+      return { error };
     }
 
     if (!response || !response.data) {
-      return { error: 'NoData' }
+      return { error: 'NoData' };
     }
 
-    const rows = response.data.split(';')
-    const result: DPSData[] = []
+    const rows = response.data.split(';');
+    const result: DPSData[] = [];
     for (const row of rows) {
-      const [ publishDate, meetingDate, fiscalYear, profitAfterTax, profitToAllocate, profitAccumulated, cashProfitPerShare ] = row.split('@')
+      const [
+        publishDate,
+        meetingDate,
+        fiscalYear,
+        profitAfterTax,
+        profitToAllocate,
+        profitAccumulated,
+        cashProfitPerShare
+      ] = row.split('@');
       result.push({
         publishDate,
         meetingDate,
@@ -47,12 +61,11 @@ export default async function getDPSData(params: GetDPSDataParams, options: Requ
         profitToAllocate,
         profitAccumulated,
         cashProfitPerShare
-      })
+      });
     }
 
-    return { data: result }
-
+    return { data: result };
   } catch (e) {
-    return { error: e }
+    return { error: e };
   }
 }

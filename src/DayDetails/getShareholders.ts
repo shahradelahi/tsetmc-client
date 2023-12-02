@@ -1,20 +1,23 @@
-import { GetDayDetailsCommonParams } from "../interface";
-import { request, RequestOptions, SafeReturn } from "../request";
-import { even2JDate } from "../utils";
+import { GetDayDetailsCommonParams } from '../interface';
+import { request, RequestOptions, SafeReturn } from '../request';
+import { even2JDate } from '@/utils';
 
-export default async function getShareholders(params: GetDayDetailsCommonParams, options: RequestOptions = {}): Promise<SafeReturn<ShareHolderDataRow[]>> {
+export default async function getShareholders(
+  params: GetDayDetailsCommonParams,
+  options: RequestOptions = {}
+): Promise<SafeReturn<ShareHolderDataRow[]>> {
   try {
-    const { insId, dEven } = params
+    const { insId, dEven } = params;
 
-    const {
-      data: response,
-      error
-    } = await request(`http://cdn.tsetmc.com/api/Shareholder/${insId}/${dEven}`, options)
+    const { data: response, error } = await request(
+      `http://cdn.tsetmc.com/api/Shareholder/${insId}/${dEven}`,
+      options
+    );
 
-    if (error) return { error }
-    if (!response) return ({ error: "No response" })
+    if (error) return { error };
+    if (!response) return { error: 'No response' };
 
-    const data = response.data['shareShareholder']
+    const data = response.data['shareShareholder'];
 
     return {
       data: data.map((row: any) => ({
@@ -26,21 +29,21 @@ export default async function getShareholders(params: GetDayDetailsCommonParams,
         count: row['numberOfShares'],
         percentage: row['perOfShares']
       }))
-    }
+    };
   } catch (e) {
-    return { error: e }
+    return { error: e };
   }
 }
 
 export interface ShareHolder {
-  id: string
-  name: string
+  id: string;
+  name: string;
 }
 
 export interface ShareHolderDataRow {
-  id: string
-  date: Date
-  shareholder: ShareHolder
-  count: number
-  percentage: number
+  id: string;
+  date: Date;
+  shareholder: ShareHolder;
+  count: number;
+  percentage: number;
 }

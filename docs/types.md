@@ -2,22 +2,22 @@
 
 ```typescript
 interface PriceOverviewData {
-   priceChange: number;
-   priceChangePercent: number;
-   priceChangePercentString: string;
-   priceChangeString: string;
-   priceLast: number;
-   priceLastString: string;
-   priceMax: number;
-   priceMaxString: string;
-   priceMin: number;
-   priceMinString: string;
-   priceOpen: number;
-   priceOpenString: string;
-   priceYesterday: number;
-   priceYesterdayString: string;
-   volume: number;
-   volumeString: string;
+  priceChange: number;
+  priceChangePercent: number;
+  priceChangePercentString: string;
+  priceChangeString: string;
+  priceLast: number;
+  priceLastString: string;
+  priceMax: number;
+  priceMaxString: string;
+  priceMin: number;
+  priceMinString: string;
+  priceOpen: number;
+  priceOpenString: string;
+  priceYesterday: number;
+  priceYesterdayString: string;
+  volume: number;
+  volumeString: string;
 }
 ```
 
@@ -25,12 +25,12 @@ interface PriceOverviewData {
 
 ```typescript
 interface PriceDataRow {
-   time: Date
-   close: number
-   last: number
-   value: number
-   volume: number
-   count: number
+  time: Date;
+  close: number;
+  last: number;
+  value: number;
+  volume: number;
+  count: number;
 }
 ```
 
@@ -38,9 +38,9 @@ interface PriceDataRow {
 
 ```typescript
 interface OrderBookDataRow {
-   time: Date
-   buyRows: OrderBookRow[]
-   sellRows: OrderBookRow[]
+  time: Date;
+  buyRows: OrderBookRow[];
+  sellRows: OrderBookRow[];
 }
 ```
 
@@ -48,10 +48,10 @@ interface OrderBookDataRow {
 
 ```typescript
 interface OrderBookRow {
-   time: Date
-   count: number
-   price: number
-   volume: number
+  time: Date;
+  count: number;
+  price: number;
+  volume: number;
 }
 ```
 
@@ -59,9 +59,9 @@ interface OrderBookRow {
 
 ```typescript
 interface TradeDataRow {
-   time: Date
-   price: number
-   volume: number
+  time: Date;
+  price: number;
+  volume: number;
 }
 ```
 
@@ -69,8 +69,8 @@ interface TradeDataRow {
 
 ```typescript
 interface TradersTypeData {
-   legal: TradersTypeInfo
-   real: TradersTypeInfo
+  legal: TradersTypeInfo;
+  real: TradersTypeInfo;
 }
 ```
 
@@ -78,8 +78,8 @@ interface TradersTypeData {
 
 ```typescript
 interface TradersTypeInfo {
-   buy: TradersTypeSubInfo
-   sell: TradersTypeSubInfo
+  buy: TradersTypeSubInfo;
+  sell: TradersTypeSubInfo;
 }
 ```
 
@@ -87,9 +87,9 @@ interface TradersTypeInfo {
 
 ```typescript
 interface TradersTypeSubInfo {
-   count: number
-   volume: number
-   value: number
+  count: number;
+  volume: number;
+  value: number;
 }
 ```
 
@@ -97,8 +97,8 @@ interface TradersTypeSubInfo {
 
 ```typescript
 interface ThresholdsData {
-   rangeMax: number
-   rangeMin: number
+  rangeMax: number;
+  rangeMin: number;
 }
 ```
 
@@ -106,11 +106,11 @@ interface ThresholdsData {
 
 ```typescript
 interface ShareHolderDataRow {
-   id: string
-   date: Date
-   shareholder: ShareHolder
-   count: number
-   percentage: number
+  id: string;
+  date: Date;
+  shareholder: ShareHolder;
+  count: number;
+  percentage: number;
 }
 ```
 
@@ -118,8 +118,8 @@ interface ShareHolderDataRow {
 
 ```typescript
 interface ShareHolder {
-   id: string
-   name: string
+  id: string;
+  name: string;
 }
 ```
 
@@ -127,11 +127,11 @@ interface ShareHolder {
 
 ```typescript
 interface Group {
-   id: number
-   code: number
-   name: string
-   description: string
-   type: GroupType
+  id: number;
+  code: number;
+  name: string;
+  description: string;
+  type: GroupType;
 }
 ```
 
@@ -139,8 +139,8 @@ interface Group {
 
 ```typescript
 enum GroupType {
-   PAPER = 'PAPER',
-   INDUSTRY = 'INDUSTRIAL',
+  PAPER = 'PAPER',
+  INDUSTRY = 'INDUSTRIAL'
 }
 ```
 
@@ -148,18 +148,17 @@ enum GroupType {
 
 ```typescript
 interface MapDataRow {
-   id: string
-   shortName: string
-   longName: string
-   close: number
-   last: number
-   volume: number
-   value: number
-   count: number
-   groupName: string
-   color: string
-   priceChangePercent: number
-   percent: number
+  id: string;
+  shortName: string;
+  longName: string;
+  close: number;
+  last: number;
+  volume: number;
+  value: number;
+  count: number;
+  groupName: string;
+  color: string;
+  priceChangePercent: number;
+  percent: number;
 }
-
 ```
