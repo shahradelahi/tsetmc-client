@@ -1,4 +1,4 @@
-name: CI Type-check
+name: CI
 
 on:
   push:
@@ -22,5 +22,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Type check
-        run: npx -y tsc --strict
+      - run: pnpm run lint
+      - run: pnpm run typecheck
