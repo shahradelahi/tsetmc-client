@@ -2,7 +2,7 @@ name: Release Package
 
 on:
   release:
-    types: [created]
+    types: [ created ]
 
 jobs:
   build:
@@ -12,15 +12,12 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 8
-
-      - name: CI Job
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - run: |
-          pnpm install --frozen-lockfile
-          npm run build
+      - run: pnpm install --frozen-lockfile
+      - run: npm run build
 
   publish-npm:
     needs: build
@@ -40,8 +37,7 @@ jobs:
             npm version ${{ github.event.release.tag_name }} --no-git-tag-version
           fi
 
-      - run: npm install
-
+      - run: pnpm install --frozen-lockfile
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
