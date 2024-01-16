@@ -29,7 +29,7 @@
   "files": [
     "dist"
   ],
-  "packageManager": "pnpm@8.11.0",
+  "packageManager": "pnpm@8.14.1",
   "dependencies": {
     "axios": "^1.6.2",
     "deepmerge": "^4.3.1",
