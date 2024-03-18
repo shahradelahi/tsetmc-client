@@ -1,5 +1,4 @@
 [TseTmc.com]: http://www.tsetmc.com
-[ShahradElahi]: https://github.com/shahradelahi
 
 # TseTmc Client Library for NodeJS
 
@@ -8,13 +7,13 @@
 
 This library is for getting tehran stock market data from the [TseTmc.com] website.
 
-## Installation
+### Installation
 
 ```bash
 npm install tsetmc-client
 ```
 
-## Usage
+### 📖 Usage
 
 ```javascript
 import { DayDetails } from 'tsetmc-client';
@@ -33,6 +32,6 @@ DayDetails.getPriceData(parameters).then((data) => {
 
 For all configuration options, please see [the API docs](https://paka.dev/npm/tsetmc-client/api).
 
-## License
+### License
 
-[MIT](LICENSE) © [Shahrad Elahi](ShahradElahi)
+[MIT](LICENSE) © [Shahrad Elahi](https://github.com/shahradelahi)
