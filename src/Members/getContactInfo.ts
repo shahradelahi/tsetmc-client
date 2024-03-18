@@ -1,11 +1,12 @@
-import { request, RequestOptions, SafeReturn } from '../request';
+import { request, RequestOptions } from '@/request';
 import deepmerge from 'deepmerge';
+import { trySafe } from 'p-safe';
 
 export default async function getContactInfo(
   params: GetContactInfoParams,
   options: RequestOptions = {}
-): Promise<SafeReturn<ContactInfo>> {
-  try {
+) {
+  return trySafe<ContactInfo>(async () => {
     const { data: response, error } = await request(
       'https://members.tsetmc.com/tsev2/data/InstContact.aspx',
       deepmerge(
@@ -24,7 +25,7 @@ export default async function getContactInfo(
     }
 
     if (!response || !response.data) {
-      return { error: 'NoData' };
+      return { error: new Error('NoData') };
     }
 
     const rows = response.data.split(';');
@@ -35,9 +36,7 @@ export default async function getContactInfo(
     }
 
     return { data: result };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }
 
 export type GetContactInfoParams = {

@@ -1,11 +1,12 @@
-import { GetDayDetailsCommonParams } from '../interface';
-import { request, RequestOptions, SafeReturn } from '../request';
+import { GetDayDetailsCommonParams } from '@/interface';
+import { request, RequestOptions } from '@/request';
+import { trySafe } from 'p-safe';
 
 export default async function getTradersType(
   params: GetDayDetailsCommonParams,
   options: RequestOptions = {}
-): Promise<SafeReturn<TradersTypeData>> {
-  try {
+) {
+  return trySafe<TradersTypeData>(async () => {
     const { insId, dEven } = params;
 
     const { data: response, error } = await request(
@@ -14,7 +15,7 @@ export default async function getTradersType(
     );
 
     if (error) return { error };
-    if (!response) return { error: 'No response' };
+    if (!response) return { error: new Error('No Data') };
 
     const data = response.data['clientType'];
 
@@ -46,9 +47,7 @@ export default async function getTradersType(
         }
       }
     };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }
 
 export interface TradersTypeData {

@@ -1,11 +1,12 @@
-import { GetDayDetailsCommonParams } from '../interface';
-import { request, RequestOptions, SafeReturn } from '../request';
+import { GetDayDetailsCommonParams } from '@/interface';
+import { request, RequestOptions } from '@/request';
+import { trySafe } from 'p-safe';
 
 export default async function getThresholds(
   params: GetDayDetailsCommonParams,
   options: RequestOptions = {}
-): Promise<SafeReturn<ThresholdsData>> {
-  try {
+) {
+  return trySafe<ThresholdsData>(async () => {
     const { insId, dEven } = params;
 
     const { data: response, error } = await request(
@@ -14,19 +15,17 @@ export default async function getThresholds(
     );
 
     if (error) return { error };
-    if (!response) return { error: 'No response' };
+    if (!response) return { error: new Error('NoData') };
 
     const data = response.data['staticThreshold'];
 
     return {
       data: {
-        rangeMax: data[1]['psGelStaMax'],
-        rangeMin: data[1]['psGelStaMin']
+        rangeMax: Number(data[1].psGelStaMax),
+        rangeMin: Number(data[1]?.psGelStaMin)
       }
     };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }
 
 export interface ThresholdsData {

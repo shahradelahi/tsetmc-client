@@ -1,23 +1,22 @@
-import { request, RequestOptions, SafeReturn } from '../request';
+import { request, RequestOptions } from '@/request';
+import { SafeReturn, trySafe } from 'p-safe';
 
 export default async function getAllGroups(
   options: RequestOptions = {}
 ): Promise<SafeReturn<GroupData[]>> {
-  try {
+  return trySafe(async () => {
     const { data: response, error } = await request(
       'http://cdn.tsetmc.com/api/StaticData/GetStaticData',
       options
     );
 
     if (error) return { error };
-    if (!response) return { error: 'No response' };
+    if (!response) return { error: new Error('NoData') };
 
     return {
       data: response.data['staticData']
     };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }
 
 export enum GroupType {

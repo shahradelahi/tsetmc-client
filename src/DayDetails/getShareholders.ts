@@ -1,12 +1,13 @@
-import { GetDayDetailsCommonParams } from '../interface';
-import { request, RequestOptions, SafeReturn } from '../request';
+import { GetDayDetailsCommonParams } from '@/interface';
+import { request, RequestOptions } from '@/request';
+import { SafeReturn, trySafe } from 'p-safe';
 import { even2JDate } from '@/utils';
 
 export default async function getShareholders(
   params: GetDayDetailsCommonParams,
   options: RequestOptions = {}
 ): Promise<SafeReturn<ShareHolderDataRow[]>> {
-  try {
+  return trySafe(async () => {
     const { insId, dEven } = params;
 
     const { data: response, error } = await request(
@@ -15,7 +16,7 @@ export default async function getShareholders(
     );
 
     if (error) return { error };
-    if (!response) return { error: 'No response' };
+    if (!response) return { error: new Error('NoData') };
 
     const data = response.data['shareShareholder'];
 
@@ -30,9 +31,7 @@ export default async function getShareholders(
         percentage: row['perOfShares']
       }))
     };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }
 
 export interface ShareHolder {

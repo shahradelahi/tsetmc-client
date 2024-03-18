@@ -1,6 +1,7 @@
-import { request, RequestOptions, SafeReturn } from '../request';
+import { request, RequestOptions } from '@/request';
+import { trySafe } from 'p-safe';
 import deepmerge from 'deepmerge';
-import { faToAr } from '../utils';
+import { faToAr } from '@/utils';
 
 export type GetBoardMembersParams = {
   symbol: string;
@@ -39,8 +40,8 @@ export type BoardMembersHistory =
 export default async function getBoardMembersHistory(
   params: GetBoardMembersParams,
   options: RequestOptions = {}
-): Promise<SafeReturn<BoardMembersHistory[]>> {
-  try {
+) {
+  return trySafe<BoardMembersHistory[]>(async () => {
     const { data: response, error } = await request(
       'http://old.tsetmc.com/tsev2/data/CodalContent.aspx',
       deepmerge(
@@ -59,10 +60,13 @@ export default async function getBoardMembersHistory(
     }
 
     if (!response || !response.data) {
-      return { error: 'NoData' };
+      return { error: new Error('NoData') };
     }
 
-    const ds = eval(response.data);
+    // Replace ' with " and make sure not to replace an escaped one
+    const data = String(response.data).replace(/([^\\])?'/gm, '$1"');
+
+    const ds = JSON.parse(data);
     const result: BoardMembersHistory[] = [];
 
     for (const item of ds) {
@@ -92,7 +96,5 @@ export default async function getBoardMembersHistory(
     }
 
     return { data: result };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }

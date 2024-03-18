@@ -1,4 +1,5 @@
-import { request, RequestOptions, SafeReturn } from '../request';
+import { request, RequestOptions } from '@/request';
+import { trySafe } from 'p-safe';
 import deepmerge from 'deepmerge';
 
 export type GetIntraDayPriceChartParams = {
@@ -17,8 +18,8 @@ export type IntraDayPriceChart = {
 export default async function getIntraDayPriceChart(
   params: GetIntraDayPriceChartParams,
   options: RequestOptions = {}
-): Promise<SafeReturn<IntraDayPriceChart[]>> {
-  try {
+) {
+  return trySafe<IntraDayPriceChart[]>(async () => {
     const { data: response, error } = await request(
       'http://old.tsetmc.com/tsev2/chart/data/IntraDayPrice.aspx',
       deepmerge<RequestOptions>(
@@ -36,12 +37,12 @@ export default async function getIntraDayPriceChart(
     }
 
     if (!response || !response.data) {
-      return { error: 'NoData' };
+      return { error: new Error('NoData') };
     }
 
     const ticks = response.data.split(';');
     if (!Array.isArray(ticks) || ticks.length === 0) {
-      return { error: 'NoData' };
+      return { error: new Error('MalformedData') };
     }
 
     const result: IntraDayPriceChart[] = [];
@@ -59,7 +60,5 @@ export default async function getIntraDayPriceChart(
     }
 
     return { data: result };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }

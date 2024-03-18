@@ -1,4 +1,5 @@
-import { request, RequestOptions, SafeReturn } from '../request';
+import { request, RequestOptions } from '@/request';
+import { trySafe } from 'p-safe';
 import deepmerge from 'deepmerge';
 
 export type SupervisionDetail = {
@@ -8,11 +9,8 @@ export type SupervisionDetail = {
   date: Date;
 };
 
-export default async function getSupervisionDetail(
-  insId: string,
-  options: RequestOptions = {}
-): Promise<SafeReturn<SupervisionDetail>> {
-  try {
+export default async function getSupervisionDetail(insId: string, options: RequestOptions = {}) {
+  return trySafe<SupervisionDetail>(async () => {
     const { data: response, error } = await request(
       'http://old.tsetmc.com/tsev2/data/Supervision.aspx',
       deepmerge<RequestOptions>(
@@ -30,7 +28,7 @@ export default async function getSupervisionDetail(
     }
 
     if (!response || !response.data) {
-      return { error: 'NoData' };
+      return { error: new Error('NoData') };
     }
 
     const [status, reason, description, date] = response.data.split('#');
@@ -43,9 +41,7 @@ export default async function getSupervisionDetail(
         date: new Date(date)
       }
     };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }
 
 function UnderSupervision(status: string): string {

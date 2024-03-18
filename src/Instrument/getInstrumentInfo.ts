@@ -1,4 +1,5 @@
-import { request, RequestOptions, SafeReturn } from '../request';
+import { request, RequestOptions } from '@/request';
+import { SafeReturn, trySafe } from 'p-safe';
 
 export type InstrumentInfo = {
   eps: InstrumentEPS;
@@ -67,17 +68,15 @@ export default async function getInstrumentInfo(
   params: GetInstrumentInfoParams,
   options: RequestOptions = {}
 ): Promise<SafeReturn<InstrumentInfo>> {
-  try {
+  return trySafe(async () => {
     const { data: response, error } = await request(
       `http://cdn.tsetmc.com/api/Instrument/GetInstrumentInfo/${params.insId}`,
       options
     );
 
     if (error) return { error };
-    if (!response) return { error: 'No response' };
+    if (!response) return { error: new Error('NoData') };
 
     return { data: response.data['instrumentInfo'] };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }

@@ -5,7 +5,7 @@ on:
   - pull_request
 
 jobs:
-  lint:
+  format:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,7 +17,20 @@ jobs:
           node-version: 18
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run lint
+      - run: pnpm run format:check
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - run: pnpm install --frozen-lockfile
       - run: pnpm run typecheck
 
   test:

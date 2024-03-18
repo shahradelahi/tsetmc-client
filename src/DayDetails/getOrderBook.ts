@@ -1,12 +1,13 @@
-import { GetDayDetailsCommonParams } from '../interface';
-import { request, RequestOptions, SafeReturn } from '../request';
-import { even2JDate } from '../utils';
+import { GetDayDetailsCommonParams } from '@/interface';
+import { request, RequestOptions } from '@/request';
+import { even2JDate } from '@/utils';
+import { trySafe } from 'p-safe';
 
 export default async function getOrderBook(
   params: GetDayDetailsCommonParams,
   options: RequestOptions = {}
-): Promise<SafeReturn<OrderBookDataRow[]>> {
-  try {
+) {
+  return trySafe<OrderBookDataRow[]>(async () => {
     const { insId, dEven } = params;
 
     const { data: response, error } = await request(
@@ -15,7 +16,7 @@ export default async function getOrderBook(
     );
 
     if (error) return { error };
-    if (!response) return { error: 'No response' };
+    if (!response) return { error: new Error('NoData') };
 
     const data = response.data['bestLimitsHistory'];
 
@@ -70,9 +71,7 @@ export default async function getOrderBook(
         ...hevenMap[key]
       }))
     };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }
 
 export interface OrderBookData {

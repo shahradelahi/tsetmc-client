@@ -1,4 +1,5 @@
-import { request, RequestOptions, SafeReturn } from '../request';
+import { request, RequestOptions } from '@/request';
+import { trySafe } from 'p-safe';
 
 export enum STATS_TRADES_INDICES {
   average_value_3_month = 0, // میانگین حجم خرید افراد حقیقی در 3 ماه گذشته
@@ -143,17 +144,19 @@ export type WatchStatsData = {
   [symbolId: string]: WatchStats;
 };
 
-export async function getWatchStatsRaw(options: RequestOptions = {}): Promise<SafeReturn<any>> {
-  try {
+export async function getWatchStatsRaw(options: RequestOptions = {}) {
+  return trySafe<any>(async () => {
     const { data: response, error } = await request(
       'http://old.tsetmc.com/tsev2/data/InstValue.aspx?t=a',
       options
     );
     if (error) return { error };
-    if (!response || !response.data) return { error: 'NoData' };
+    if (!response || !response.data) return { error: new Error('No data') };
+
     const watchData: Record<string, Record<number, number>> = {};
     const sections = response.data.split(';');
     let symbolId = 'NaN';
+
     sections.forEach((section: string) => {
       let row = section.split(',');
       if (row.length === 3) {
@@ -168,20 +171,17 @@ export async function getWatchStatsRaw(options: RequestOptions = {}): Promise<Sa
       // example: index is 59 then the data is the 59th data in the STATS_CLIENT_TYPE_INDICES
       watchData[symbolId][dataKey] = row[1].includes('.') ? parseFloat(row[1]) : parseInt(row[1]);
     });
+
     return { data: watchData };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }
 
-export default async function getWatchStats(
-  options: RequestOptions = {}
-): Promise<SafeReturn<WatchStatsData>> {
-  try {
+export default async function getWatchStats(options: RequestOptions = {}) {
+  return trySafe<WatchStatsData>(async () => {
     const { data, error } = await getWatchStatsRaw(options);
 
     if (error) return { error };
-    if (!data) return { error: 'NoData' };
+    if (!data) return { error: new Error('No data') };
 
     const watchData: WatchStatsData = {};
 
@@ -241,7 +241,5 @@ export default async function getWatchStats(
     });
 
     return { data: watchData };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }

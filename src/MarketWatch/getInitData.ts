@@ -1,4 +1,5 @@
-import { request, RequestOptions, SafeReturn } from '../request';
+import { request, RequestOptions } from '@/request';
+import { trySafe } from 'p-safe';
 import deepmerge from 'deepmerge';
 
 export type GetWatchPriceParams = {
@@ -9,8 +10,8 @@ export type GetWatchPriceParams = {
 export default async function getWatchPrice(
   params?: GetWatchPriceParams,
   options: RequestOptions = {}
-): Promise<SafeReturn<WatchPrice[]>> {
-  try {
+) {
+  return trySafe<WatchPrice[]>(async () => {
     const { refId = 0, hEven = 0 } = params || {};
 
     const { data: response, error } = await request(
@@ -27,7 +28,7 @@ export default async function getWatchPrice(
     );
 
     if (error) return { error };
-    if (!response || !response.data) return { error: 'NoData' };
+    if (!response || !response.data) return { error: new Error('NoData') };
 
     const data = response.data;
 
@@ -157,9 +158,7 @@ export default async function getWatchPrice(
     }
 
     return { data: result };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }
 
 export type WatchPrice = {

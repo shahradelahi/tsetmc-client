@@ -1,4 +1,4 @@
-import { SafeReturn } from '../request';
+import { SafeReturn, trySafe } from 'p-safe';
 
 export type WatchTradersType = {
   legal: TraderTypeData;
@@ -23,7 +23,7 @@ export type WatchTradersTypeData = {
 };
 
 export default async function getClientTypeAll(): Promise<SafeReturn<WatchTradersTypeData>> {
-  try {
+  return trySafe(async () => {
     const response = await fetch('http://old.tsetmc.com/tsev2/data/ClientTypeAll.aspx');
     const text = await response.text();
 
@@ -63,7 +63,5 @@ export default async function getClientTypeAll(): Promise<SafeReturn<WatchTrader
     }
 
     return { data: watchData };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }

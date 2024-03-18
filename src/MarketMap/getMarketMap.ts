@@ -1,12 +1,13 @@
-import { request, RequestOptions, SafeReturn } from '../request';
-import { hEvenValidation } from '../utils';
+import { request, RequestOptions } from '@/request';
+import { SafeReturn, trySafe } from 'p-safe';
+import { hEvenValidation } from '@/utils';
 import deepmerge from 'deepmerge';
 
 export default async function getMarketMap(
   params: GetMarketMapParams,
   options: RequestOptions = {}
 ): Promise<SafeReturn<MapDataRow[]>> {
-  try {
+  return trySafe(async () => {
     const {
       mapType = MapType.MarketValue,
       hEven = 0,
@@ -36,7 +37,7 @@ export default async function getMarketMap(
     );
 
     if (error) return { error };
-    if (!response) return { error: 'No response' };
+    if (!response) return { error: new Error('NoData') };
 
     return {
       data: response.data.map((row: any) => ({
@@ -54,9 +55,7 @@ export default async function getMarketMap(
         percent: row['percent']
       }))
     };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }
 
 export enum MapType {

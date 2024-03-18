@@ -2,6 +2,5 @@
   "$schema": "https://json.schemastore.org/mocharc.json",
   "require": ["tsx", "chai/register-expect"],
   "timeout": 20000,
-  "retries": 3,
   "parallel": false
 }

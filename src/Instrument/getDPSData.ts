@@ -1,6 +1,7 @@
-import { request, RequestOptions, SafeReturn } from '../request';
+import { request, RequestOptions } from '@/request';
+import { trySafe } from 'p-safe';
 import deepmerge from 'deepmerge';
-import { faToAr } from '../utils';
+import { faToAr } from '@/utils';
 
 export type GetDPSDataParams = {
   symbol: string;
@@ -16,11 +17,8 @@ export type DPSData = {
   cashProfitPerShare: string;
 };
 
-export default async function getDPSData(
-  params: GetDPSDataParams,
-  options: RequestOptions = {}
-): Promise<SafeReturn<DPSData[]>> {
-  try {
+export default async function getDPSData(params: GetDPSDataParams, options: RequestOptions = {}) {
+  return trySafe<DPSData[]>(async () => {
     const { data: response, error } = await request(
       'http://old.tsetmc.com/tsev2/data/DPSData.aspx',
       deepmerge(
@@ -38,7 +36,7 @@ export default async function getDPSData(
     }
 
     if (!response || !response.data) {
-      return { error: 'NoData' };
+      return { error: new Error('NoData') };
     }
 
     const rows = response.data.split(';');
@@ -65,7 +63,5 @@ export default async function getDPSData(
     }
 
     return { data: result };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }

@@ -1,12 +1,13 @@
-import { request, RequestOptions, SafeReturn } from '../request';
+import { request, RequestOptions } from '@/request';
+import { SafeReturn, trySafe } from 'p-safe';
 import { even2JDate } from '@/utils';
-import { GetDayDetailsCommonParams, SerializableRecord } from '../interface';
+import { GetDayDetailsCommonParams, SerializableRecord } from '@/interface';
 
 export default async function getTrades(
   params: GetTradesParams,
   options: RequestOptions = {}
 ): Promise<SafeReturn<TradeDataRow>> {
-  try {
+  return trySafe(async () => {
     const { insId, dEven, summarize } = params;
     const summarizeStr = summarize ? 'true' : 'false';
 
@@ -16,7 +17,7 @@ export default async function getTrades(
     );
 
     if (error) return { error };
-    if (!response) return { error: 'No response' };
+    if (!response) return { error: new Error('NoData') };
 
     const data = response.data['tradeHistory'];
 
@@ -27,9 +28,7 @@ export default async function getTrades(
         volume: row['qTitTran']
       }))
     };
-  } catch (e) {
-    return { error: e };
-  }
+  });
 }
 
 export interface GetTradesParams extends GetDayDetailsCommonParams {
