@@ -1,285 +1,220 @@
-import { afterEach, describe, expect, test } from '@jest/globals';
-import TseTmc, {
+import {
   DayDetails,
   Group,
   Instrument,
   MapType,
   MarketMap,
-  MarketWatch
-} from '../src/index';
+  MarketWatch,
+  TseTmc
+} from 'tsetmc-client';
+import { expect } from 'chai';
 
 const symbol = {
   id: '35331248532537562',
   name: 'اردستان'
 };
 
-const commonTimeOut = 20000;
-
 describe('Day Details', () => {
   afterEach(async () => await delay(1000));
 
-  test(
-    'Get Price Overview Data',
-    async () => {
-      const { data } = await DayDetails.getPriceOverview({ insId: symbol.id, dEven: 20230201 });
+  it('Get Price Overview Data', async () => {
+    const { data } = await DayDetails.getPriceOverview({ insId: symbol.id, dEven: 20230201 });
 
-      expect(data).toBeDefined();
-      expect(data).toHaveProperty('volume');
-      expect(data!.volume).toEqual(6794682);
+    !expect(data).not.be.undefined;
+    expect(data).to.have.property('volume');
+    expect(data!.volume).to.eq(6794682);
 
-      const { error } = await DayDetails.getPriceOverview({ insId: '00000', dEven: 12341212 });
-      expect(error).toBeDefined();
-    },
-    commonTimeOut
-  );
+    const { error } = await DayDetails.getPriceOverview({ insId: '00000', dEven: 12341212 });
+    expect(error).not.be.undefined;
+  });
 
-  test(
-    'Get Price Data',
-    async () => {
-      const { data } = await DayDetails.getPriceData({ insId: symbol.id, dEven: 20230201 });
+  it('Get Price Data', async () => {
+    const { data } = await DayDetails.getPriceData({ insId: symbol.id, dEven: 20230201 });
 
-      expect(data).toBeDefined();
-    },
-    commonTimeOut
-  );
+    expect(data).not.be.undefined;
+  });
 
-  test(
-    'Get Order Book Data',
-    async () => {
-      const { data } = await DayDetails.getOrderBook({ insId: symbol.id, dEven: 20230201 });
+  it('Get Order Book Data', async () => {
+    const { data } = await DayDetails.getOrderBook({ insId: symbol.id, dEven: 20230201 });
 
-      expect(data).toBeDefined();
-    },
-    commonTimeOut
-  );
+    expect(data).not.be.undefined;
+  });
 
-  test(
-    'Get Trades',
-    async () => {
-      const { data } = await DayDetails.getTrades({
-        insId: symbol.id,
-        dEven: 20230201,
-        summarize: true
-      });
+  it('Get Trades', async () => {
+    const { data } = await DayDetails.getTrades({
+      insId: symbol.id,
+      dEven: 20230201,
+      summarize: true
+    });
 
-      expect(data).toBeDefined();
-    },
-    commonTimeOut
-  );
+    expect(data).not.be.undefined;
+  });
 
-  test(
-    'Get Traders Type',
-    async () => {
-      const { data } = await DayDetails.getTradersType({ insId: symbol.id, dEven: 20230201 });
+  it('Get Traders Type', async () => {
+    const { data } = await DayDetails.getTradersType({ insId: symbol.id, dEven: 20230201 });
 
-      expect(data).toBeDefined();
-    },
-    commonTimeOut
-  );
+    expect(data).not.be.undefined;
+  });
 
-  test(
-    'Get Thresholds',
-    async () => {
-      const { data } = await DayDetails.getThresholds({ insId: symbol.id, dEven: 20230201 });
+  it('Get Thresholds', async () => {
+    const { data } = await DayDetails.getThresholds({ insId: symbol.id, dEven: 20230201 });
 
-      expect(data).toBeDefined();
-    },
-    commonTimeOut
-  );
+    expect(data).not.be.undefined;
+  });
 });
 
 describe('Group', () => {
   afterEach(async () => await delay(1000));
 
-  test(
-    'Get All Groups',
-    async () => {
-      const { data, error } = await Group.getAllGroups();
+  it('Get All Groups', async () => {
+    const { data, error } = await Group.getAllGroups();
 
-      expect(data).toBeDefined();
-      expect(error).toBeUndefined();
-      expect(data!.length).toBeGreaterThan(50);
-      expect(data![0]).toHaveProperty('id');
-    },
-    commonTimeOut
-  );
+    expect(data).not.be.undefined;
+    expect(error).be.undefined;
+    expect(data!.length).to.gt(50);
+    expect(data![0]).to.have.property('id');
+  });
 });
 
 describe('Market Map', () => {
   afterEach(async () => await delay(1000));
 
-  test(
-    'Get Market Map Data',
-    async () => {
-      const { data, error } = await MarketMap.getMarketMap({
-        mapType: MapType.MarketValue
-      });
+  it('Get Market Map Data', async () => {
+    const { data, error } = await MarketMap.getMarketMap({
+      mapType: MapType.MarketValue
+    });
 
-      expect(data).toBeDefined();
-      expect(error).toBeUndefined();
-      expect(data!.length).toBeGreaterThan(100);
-      expect(data![0]).toHaveProperty('id');
-    },
-    commonTimeOut
-  );
+    expect(data).not.be.undefined;
+    expect(error).be.undefined;
+    expect(data!.length).to.gt(100);
+    expect(data![0]).to.have.property('id');
+  });
 });
 
 describe('Market Watch', () => {
   afterEach(async () => await delay(1000));
 
-  test(
-    'Get Price Data',
-    async () => {
-      const { data, error } = await MarketWatch.getPriceData(undefined, {
-        timeout: 10000
+  it('Get Price Data', async () => {
+    const { data, error } = await MarketWatch.getPriceData(undefined, {
+      timeout: 10000
+    });
+
+    expect(data).not.be.undefined;
+    expect(error).be.undefined;
+
+    expect(data!.length).to.gt(100);
+    expect(data![0]).to.have.property('symbolId');
+  });
+
+  it('Get Client Type All', async () => {
+    const { data, error } = await MarketWatch.getClientTypeAll();
+
+    expect(data).not.be.undefined;
+    expect(error).be.undefined;
+
+    data &&
+      Object.entries(data).forEach(([key, value]) => {
+        expect(key).not.be.undefined;
+        expect(value).not.be.undefined;
+        expect(value).to.have.property('legal');
+        expect(value).to.have.property('real');
       });
+  });
 
-      expect(data).toBeDefined();
-      expect(error).toBeUndefined();
+  it('Get Watch Stats', async () => {
+    const { data, error } = await TseTmc.MarketWatch.getWatchStats();
+    console.log(data!['72044846109864381']);
 
-      expect(data!.length).toBeGreaterThan(100);
-      expect(data![0]).toHaveProperty('symbolId');
-    },
-    commonTimeOut
-  );
-
-  test(
-    'Get Client Type All',
-    async () => {
-      const { data, error } = await MarketWatch.getClientTypeAll();
-
-      expect(data).toBeDefined();
-      expect(error).toBeUndefined();
-
-      data &&
-        Object.entries(data).forEach(([key, value]) => {
-          expect(key).toBeDefined();
-          expect(value).toBeDefined();
-          expect(value).toHaveProperty('legal');
-          expect(value).toHaveProperty('real');
-        });
-    },
-    commonTimeOut
-  );
-
-  test(
-    'Get Watch Stats',
-    async () => {
-      const { data, error } = await TseTmc.MarketWatch.getWatchStats();
-      console.log(data!['72044846109864381']);
-
-      Object.entries(data!).forEach(([key, value]) => {
-        expect(key).toBeDefined();
-        expect(value).toBeDefined();
-        expect(value).toHaveProperty('trades');
-        expect(value).toHaveProperty('negative_days');
-        expect(value).toHaveProperty('no_trade_days');
-        expect(value).toHaveProperty('positive_days');
-        expect(value).toHaveProperty('with_trade_days');
-        expect(value).toHaveProperty('company_value');
-        expect(value).toHaveProperty('open_days');
-        expect(value).toHaveProperty('closed_days');
-        expect(value).toHaveProperty('client_type');
-      });
-    },
-    commonTimeOut
-  );
+    Object.entries(data!).forEach(([key, value]) => {
+      expect(key).not.be.undefined;
+      expect(value).not.be.undefined;
+      expect(value).to.have.property('trades');
+      expect(value).to.have.property('negative_days');
+      expect(value).to.have.property('no_trade_days');
+      expect(value).to.have.property('positive_days');
+      expect(value).to.have.property('with_trade_days');
+      expect(value).to.have.property('company_value');
+      expect(value).to.have.property('open_days');
+      expect(value).to.have.property('closed_days');
+      expect(value).to.have.property('client_type');
+    });
+  });
 });
 
 describe('Instrument', () => {
   afterEach(async () => await delay(1000));
 
-  test(
-    'Get Board Members',
-    async () => {
-      const { data, error } = await Instrument.getBoardMembersHistory({ symbol: 'ونوين' });
+  it('Get Board Members', async () => {
+    const { data, error } = await Instrument.getBoardMembersHistory({ symbol: 'ونوين' });
 
-      expect(data).toBeDefined();
-      expect(error).toBeUndefined();
+    expect(data).not.be.undefined;
+    expect(error).be.undefined;
 
-      expect(data!.length).toBeGreaterThan(0);
+    expect(data!.length).to.gt(0);
 
-      data?.forEach((item) => {
-        expect(item).toHaveProperty('SessionDate');
-        if (item.type === 'BoardMembers') {
-          expect(item).toHaveProperty('AssemblyDate');
-          expect(item).toHaveProperty('BoardMembers');
-        }
-        if (item.type === 'DirectorManager') {
-          expect(item).toHaveProperty('DirectorManager');
-          expect(item.DirectorManager).toHaveProperty('EducationDegree');
-          expect(item.DirectorManager).toHaveProperty('Name');
-          expect(item.DirectorManager).toHaveProperty('NationalCode');
-        }
-      });
-    },
-    commonTimeOut
-  );
+    data?.forEach((item) => {
+      expect(item).to.have.property('SessionDate');
+      if (item.type === 'BoardMembers') {
+        expect(item).to.have.property('AssemblyDate');
+        expect(item).to.have.property('BoardMembers');
+      }
+      if (item.type === 'DirectorManager') {
+        expect(item).to.have.property('DirectorManager');
+        expect(item.DirectorManager).to.have.property('EducationDegree');
+        expect(item.DirectorManager).to.have.property('Name');
+        expect(item.DirectorManager).to.have.property('NationalCode');
+      }
+    });
+  });
 
-  test(
-    'Get DPS Data',
-    async () => {
-      const { data, error } = await Instrument.getDPSData({ symbol: 'ونوين' });
+  it('Get DPS Data', async () => {
+    const { data, error } = await Instrument.getDPSData({ symbol: 'ونوين' });
 
-      expect(data).toBeDefined();
-      expect(error).toBeUndefined();
+    expect(data).not.be.undefined;
+    expect(error).be.undefined;
 
-      expect(data!.length).toBeGreaterThan(0);
-      expect(data![0]).toHaveProperty('publishDate');
-      expect(data![0]).toHaveProperty('meetingDate');
-      expect(data![0]).toHaveProperty('fiscalYear');
-      expect(data![0]).toHaveProperty('profitAfterTax');
-      expect(data![0]).toHaveProperty('profitToAllocate');
-      expect(data![0]).toHaveProperty('profitAccumulated');
-      expect(data![0]).toHaveProperty('cashProfitPerShare');
-    },
-    commonTimeOut
-  );
+    expect(data!.length).to.gt(0);
+    expect(data![0]).to.have.property('publishDate');
+    expect(data![0]).to.have.property('meetingDate');
+    expect(data![0]).to.have.property('fiscalYear');
+    expect(data![0]).to.have.property('profitAfterTax');
+    expect(data![0]).to.have.property('profitToAllocate');
+    expect(data![0]).to.have.property('profitAccumulated');
+    expect(data![0]).to.have.property('cashProfitPerShare');
+  });
 
-  test(
-    'Get Instrument Info',
-    async () => {
-      const { data, error } = await Instrument.getInstrumentInfo({ insId: symbol.id });
+  it('Get Instrument Info', async () => {
+    const { data, error } = await Instrument.getInstrumentInfo({ insId: symbol.id });
 
-      expect(data).toBeDefined();
-      expect(error).toBeUndefined();
+    expect(data).not.be.undefined;
+    expect(error).be.undefined;
 
-      expect(data!.insCode).toEqual(symbol.id);
-      expect(data!.instrumentID.startsWith('IR')).toBeTruthy();
-    },
-    commonTimeOut
-  );
+    expect(data!.insCode).to.eq(symbol.id);
+    expect(data!.instrumentID.startsWith('IR')).to.true;
+  });
 
-  test(
-    'Get Intra Day Price Chart',
-    async () => {
-      const { data, error } = await Instrument.getIntraDayPriceChart({
-        insId: '47302318535715632'
-      });
+  it('Get Intra Day Price Chart', async () => {
+    const { data, error } = await Instrument.getIntraDayPriceChart({
+      insId: '47302318535715632'
+    });
 
-      expect(data).toBeDefined();
-      expect(error).toBeUndefined();
+    expect(data).not.be.undefined;
+    expect(error).be.undefined;
 
-      expect(data!.length).toBeGreaterThan(0);
-      expect(data![0]).toHaveProperty('time');
-    },
-    commonTimeOut
-  );
+    expect(data!.length).to.gt(0);
+    expect(data![0]).to.have.property('time');
+  });
 
-  test(
-    'Get Supervisor Message',
-    async () => {
-      const { data, error } = await Instrument.getSupervisorMsg({ insId: symbol.id });
+  it('Get Supervisor Message', async () => {
+    const { data, error } = await Instrument.getSupervisorMsg({ insId: symbol.id });
 
-      expect(data).toBeDefined();
-      expect(error).toBeUndefined();
+    expect(data).not.be.undefined;
+    expect(error).be.undefined;
 
-      expect(data!.length).toBeGreaterThan(0);
-      expect(data![0]).toHaveProperty('id');
-      expect(data![0]).toHaveProperty('title');
-    },
-    commonTimeOut
-  );
+    expect(data!.length).to.gt(0);
+    expect(data![0]).to.have.property('id');
+    expect(data![0]).to.have.property('title');
+  });
 });
 
 async function delay(ms: number) {

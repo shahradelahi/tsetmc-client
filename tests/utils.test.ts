@@ -1,14 +1,14 @@
-import { describe, expect, test } from '@jest/globals';
-import { utils } from '../src/index';
+import { utils } from 'tsetmc-client';
 import deepmerge from 'deepmerge';
-import { RequestOptions } from '../src/request';
+import { RequestOptions } from '@/request';
+import { expect } from 'chai';
 
 describe('Utils', () => {
-  test('hEven to time', async () => {
-    expect(utils.hEven2Time(61043)).toEqual('06:10:43');
+  it('hEven to time', async () => {
+    expect(utils.hEven2Time(61043)).to.eq('06:10:43');
   });
 
-  test('Deep Merge Request Options', async () => {
+  it('Deep Merge Request Options', async () => {
     const initialOptions: RequestOptions = {
       params: {
         h: 'hi',
@@ -25,14 +25,14 @@ describe('Utils', () => {
 
     const mergedOptions = deepmerge<RequestOptions>(initialOptions, extendedOptions);
 
-    expect(mergedOptions).toHaveProperty('params');
-    expect(mergedOptions).toHaveProperty('timeout');
-    expect(mergedOptions.params).toHaveProperty('h');
-    expect(mergedOptions.params).toHaveProperty('r');
-    expect(mergedOptions.params.r).toEqual('hi');
+    expect(mergedOptions).to.have.property('params');
+    expect(mergedOptions).to.have.property('timeout');
+    expect(mergedOptions.params).to.have.property('h');
+    expect(mergedOptions.params).to.have.property('r');
+    expect(mergedOptions.params.r).to.eq('hi');
   });
 
-  test('Convert Persian to Arabic', async () => {
-    expect(utils.faToAr('ونوین')).toEqual('ونوين');
+  it('Convert Persian to Arabic', async () => {
+    expect(utils.faToAr('ونوین')).to.eq('ونوين');
   });
 });

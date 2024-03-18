@@ -9,6 +9,7 @@ export * as utils from './utils/index';
 export { DayDetails, Group, MarketMap, MarketWatch, Instrument };
 
 const TseTmc = { DayDetails, Group, MarketMap, MarketWatch, Instrument };
+export { TseTmc };
 export default TseTmc;
 
 // ---- Enums

@@ -6,7 +6,6 @@
     "declarationMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "allowImportingTsExtensions": true,
     "inlineSources": false,
     "isolatedModules": true,
     "moduleResolution": "node",
@@ -19,10 +18,11 @@
     "downlevelIteration": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "tsetmc-client": ["./src/index.ts"]
     },
-    "outDir": "build"
+    "outDir": "dist"
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules", "build", "dist"]
+  "exclude": ["node_modules", "dist"]
 }
